@@ -1,0 +1,92 @@
+:root {
+  --text-color: rgb(149, 148, 148);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+  font-family: Georgia;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+  background-image: radial-gradient(100% 215.42% at 0% 0%, #534e4b 0%, #262425 100%);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.left-column {
+
+  width: calc(100% - 350px);
+}
+
+.right-column {
+  width: 350px;
+  border: 1px solid green;
+  position: fixed;
+  top: 0;
+  right: 0;
+  min-height: 100vh;
+}
+
+.task-name {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 32px;
+  color: var(--text-color)
+}
+
+.code-wrapper {
+  margin: 50px auto 0;
+  width: 90%;
+  border: 1px solid green;
+  display: flex;
+  flex-direction: row;
+}
+
+.html-block,
+.css-block {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+.headings-wrapper {
+  height: 3rem;
+  background-color: black;
+  color: var(--text-color);
+  padding: 5px;
+}
