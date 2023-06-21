@@ -2,12 +2,37 @@
   --text-color: rgb(149, 148, 148);
 }
 
+input {
+  border: none;
+  outline: none;
+  background-color: unset;
+}
+
+button {
+  border: unset;
+  cursor: pointer;
+}
+
+.method {
+  color: #bd9ff0;
+}
+
+.string {
+  color: #eeddec;
+}
+
+.global {
+  color: #f5adee;
+}
+
+
 html {
   scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
   margin-block-start: 0em;
   margin-block-end: 0em;
   margin-inline-start: 0px;
@@ -25,7 +50,8 @@ body {
   padding: 0;
   overflow-x: hidden;
   width: 100%;
-  background-image: radial-gradient(100% 215.42% at 0% 0%, #534e4b 0%, #262425 100%);
+  /* background-image: radial-gradient(100% 215.42% at 0% 0%, #534e4b 0%, #262425 100%); */
+  background-image: radial-gradient(100% 215.42% at 0% 0%, #e3376a9e 0%, #ea759bfc 100%);
 }
 
 a {
@@ -39,21 +65,26 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: -40px;
+}
+
+h1 {
+  font-size: 18px;
 }
 
 .header {
-  padding: 20px;
+  padding: 7px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .left-column {
 
-  width: calc(100% - 350px);
+  width: calc(100% - 250px);
 }
 
 .right-column {
-  width: 350px;
+  width: 250px;
   border: 1px solid green;
   position: fixed;
   top: 0;
@@ -62,31 +93,266 @@ main {
 }
 
 .task-name {
-  margin-top: 3rem;
   text-align: center;
-  font-size: 32px;
+  font-size: 24px;
   color: var(--text-color)
 }
 
-.code-wrapper {
-  margin: 50px auto 0;
+.task-wrapper {
+  margin: 0 auto;
   width: 90%;
-  border: 1px solid green;
+  padding-top: 10px;
+}
+
+.castle {
+  margin: 0 auto;
+  width: 705px;
+  height: 315px;
+  background-image: url(./assets/backgroundRed.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
+}
+
+.code-wrapper {
+  margin: 15px auto;
+  width: 90%;
   display: flex;
   flex-direction: row;
+  border-radius: 4px;
 }
+
 
 .html-block,
 .css-block {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  border-radius: 4px;
 }
 
+.html-block {
+  max-width: 350px;
+}
 
 .headings-wrapper {
-  height: 3rem;
+  height: 40px;
   background-color: black;
   color: var(--text-color);
   padding: 5px;
+}
+
+.css-editor,
+.html-view {
+  min-height: 250px;
+  color: var(--text-color);
+}
+
+
+.css-editor {
+  background-color: rgb(238, 238, 225);
+  padding: 10px;
+}
+
+.html-view-cont {
+  background-color: #534e4b;
+
+}
+
+.pre {
+  width: 100%;
+  max-height: 250px;
+  /* background: rgb(247, 245, 245); */
+}
+
+.code {
+  padding-left: 15px;
+  display: block;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: "Consolas", "Monaco", "Menlo", monospace;
+}
+
+
+button:hover {
+  box-shadow: -1px 5px 7px -4px #35101c;
+}
+
+.enter {
+  margin-top: 10px;
+  width: 73px;
+  height: 37px;
+  border: 2px pink solid;
+  border-radius: 4px;
+  box-shadow: -1px 5px 4px -4px #c63e6a;
+}
+
+.levels {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.levels-list {
+  padding-left: 30px;
+  /* padding: 20px 20px 20px 30px ; */
+}
+
+
+.level-counter {
+  margin-bottom: 15px;
+}
+
+.levels-name {
+  padding-bottom: 12px;
+  padding-left: 3px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.levels-name:hover {
+  background-color: #d26b8cfc;
+}
+
+
+/* LEVELS ELEMENTS  */
+.princess {
+  background-image: url(./assets/princess.png);
+  width: 108px;
+  height: 242px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-top: 108px;
+  /* margin-left: -35px; */
+  transform: scale(-1, 1)
+}
+
+wardrobe {
+  position: relative;
+  background-image: url(./assets/shkaf2.png);
+  width: 390px;
+  height: 302px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+dress {
+  position: relative;
+  background-image: url(./assets/pink-dress.png);
+  display: block;
+  width: 66px;
+  height: 165px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+dress#blue {
+  background-image: url(./assets/blue-dress.png);
+}
+
+coat {
+  position: relative;
+  background-image: url(./assets/coat-svgrepo-com.png);
+  display: block;
+  width: 85px;
+  height: 165px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+box {
+  position: relative;
+  background-image: url(./assets/gift-box.png);
+  display: block;
+  width: 85px;
+  height: 300px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+  z-index: 33;
+}
+
+pethouse {
+  position: relative;
+  background-image: url(./assets/kennel.png);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 210px;
+  height: 300px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+dog {
+  position: relative;
+  background-image: url(./assets/dog-pug.png);
+  display: block;
+  width: 71px;
+  height: 300px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+dog.black {
+  background-image: url(./assets/dog-pug-black.png);
+}
+
+cat {
+  position: relative;
+  background-image: url(./assets/black-cat.png);
+  display: block;
+  width: 71px;
+  height: 300px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+cat.orange {
+  background-image: url(./assets/orange-cat.png);
+}
+
+
+vase {
+  position: relative;
+  background-image: url(./assets/vase4.png);
+  display: block;
+  width: 85px;
+  height: 285px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+
+box {
+  position: relative;
+  background-image: url(./assets/gift-box.png);
+  display: block;
+  width: 85px;
+  height: 285px;
+  z-index: 10;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom;
 }

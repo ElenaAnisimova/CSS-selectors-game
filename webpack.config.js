@@ -5,6 +5,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const EslingPlugin = require('eslint-webpack-plugin')
+// const Highlight = require('highlight-html-syntax')
 
 module.exports = {
   mode: 'development',

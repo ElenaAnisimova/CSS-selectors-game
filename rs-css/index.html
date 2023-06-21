@@ -9,31 +9,65 @@
 
 <body>
   <header class="header">
-    <h1>RSSchool Css Selectors Game</h1>
+    <h1>RSSchool CSS<br> Selectors Game</h1>
   </header>
   <main>
     <div class="left-column">
       <h3 class="task-name">Select the plates</h3>
-      <section class="task-wrapper"></section>
+      <section class="task-wrapper">
+        <div class="castle">
+          <div class="princess"></div>
+          <!-- <wardrobe>
+            <dress></dress>
+            <dress></dress>
+            <dress></dress>
+          </wardrobe> -->
+        </div>
+      </section>
       <section class="code-wrapper">
-        <div class="html-block">
+        <div class="css-block">
           <div class="headings-wrapper html">
             <span class="editor-heading">CSS Editor</span>
           </div>
-          <div class="css-editor"></div>
+          <div class="css-editor">
+            <form action="">
+              <input type="text" class="input-selector" placeholder="Type a CSS Selector">
+            </form>
+            <form action="">
+              <button type="button" class="enter">Enter</button>
+            </form>
+          </div>
         </div>
-        <div class="css-block">
+        <div class="html-block">
           <div class="headings-wrapper css">
             <span class="editor-heading">
               HTML View
             </span>
           </div>
-          <div class="html-view"></div>
+          <div class="html-view-cont">
+            <div class="pre">
+              <div class="html-view code">
+                <!-- &lt;wardrobe&gt;
+                &lt;dress&gt;&lt;/dress&gt;
+                &lt;dress&gt;&lt;/dress&gt;
+                &lt;dress&gt;&lt;/dress&gt;
+          &lt;/wardrobe&gt; -->
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
     </div>
     <div class="right-column">
-      <section class="levels"></section>
+      <section class="levels">
+        <h3 class="level-counter">Level 1 of 10</h3>
+        <ol class="levels-list">
+          <!-- <li class="levels-name">Type selector</li>
+          <li class="levels-name">Class selector</li> -->
+          </ol>
+
+      </section>
     </div>
   </main>
   <footer></footer>
