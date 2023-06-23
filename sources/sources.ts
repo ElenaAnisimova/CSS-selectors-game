@@ -94,7 +94,6 @@ const levels = [
     levelName: "*",
     help: "*",
     boardMarkup: `
-     
   <pethouse>
           <cat class="orange"></cat>
   </pethouse>
@@ -103,6 +102,90 @@ const levels = [
      <cat class="black"></cat>
      <box></box>
       `,
+  },
+  {
+    level: 7,
+    doThis: "Select everything on the tables",
+    selectorName: "Universal Selector",
+    helpTitle: " Combine the Universal Selector",
+    selector: "table *",
+    levelName: "A *",
+    help: "table *",
+    boardMarkup: `
+       <div class="princess"></div>
+       <div class="table">
+      <chicken></chicken>
+   </div>
+       <div class="table">
+             <vase class="small"></vase>
+   </div>
+   <box></box>
+       <div class="table">
+           <cat class="black"></cat>
+   </div>
+      `,
+  },
+  {
+    level: 8,
+    doThis: "Select every vase that's next to a chair",
+    selectorName: "Adjacent Sibling Selector",
+    helpTitle: "Select an element that directly follows another element",
+    selector: "chair + vase",
+    levelName: "A + B",
+    help: "chair + vase",
+    boardMarkup: `
+  <chair>
+         <cat class="black"></cat>
+  </chair>
+  <vase></vase>
+  <chair></chair>
+    <vase class="small"></vase>
+  <vase></vase>
+    <div class="table">
+           <vase class="small"></vase>
+  </div>
+      `,
+  },
+  {
+    level: 9,
+    doThis: "Select the cat directly on the chair",
+    selectorName: "Child Selector",
+    helpTitle: "Select direct children of an element",
+    selector: "chair > cat",
+    levelName: "A > B",
+    help: "chair > cat",
+    boardMarkup: `
+  <cat class="white"></cat>
+ <chair>
+        <cat class="white"></cat>
+ </chair>
+  <cat class="orange"></cat>
+ <chair></chair>
+ <chair>
+    <basket>
+              <cat class="white"></cat>
+    </basket>
+ </chair>     
+       `,
+  },
+  {
+    level: 10,
+    doThis: "Select the top cat",
+    selectorName: "First Child Pseudo-selector",
+    helpTitle: "Select an element that are the only element inside of another one",
+    selector: "cat:first-child",
+    levelName: ":first-child",
+    help: "cat:first-child",
+    boardMarkup: `
+    <chair class="fancy"></chair>
+  <dog></dog>
+    <chair class="fancy">
+         <cat class="black"></cat>
+         <cat class="black"></cat>
+         <cat class="black"></cat>
+  </chair>
+  <basket></basket>
+        `,
   },
 ];
 export default levels;

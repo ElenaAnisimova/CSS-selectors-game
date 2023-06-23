@@ -27,24 +27,23 @@ const Highlight = (string: string): string => {
 const castle = document.querySelector(".castle") as HTMLElement;
 // const princessTemplate = `<div class="princess"></div>` as string;
 function showHtml(): void {
-  castle.innerHTML = levels[5].boardMarkup;
   // htmlView.innerText = castle.innerHTML;
   // console.log(document.querySelectorAll('.castle *')[1].outerHTML);
   // const arr = document.querySelectorAll(".castle *");
   // const result = [];
   // for (let i = 0; i < arr.length; i++) {
-  //   result.push(arr[i].outerHTML);
-
-  // }
-
-  // console.log(result);
-  const roomElements = document.querySelectorAll(".castle *")[2].outerHTML;
-  console.log(roomElements);
-  // if(roomElements === )
-
-  console.log();
-
-  const code = levels[5].boardMarkup;
+    //   result.push(arr[i].outerHTML);
+    
+    // }
+    
+    // console.log(result);
+    // const roomElements = document.querySelectorAll(".castle *")[2].outerHTML;
+    // console.log(roomElements);
+    // if(roomElements === )
+    
+    
+    castle.innerHTML = levels[0].boardMarkup;
+  const code = levels[0].boardMarkup;
   console.log(code);
 
   const syntax = Highlight(code);
