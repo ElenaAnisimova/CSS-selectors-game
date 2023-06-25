@@ -1,8 +1,8 @@
 const levels = [
   {
-    level: 1,
+    level: 0,
     levelName: "A",
-    selectorTask: "Select elements by their type",
+    helpTitle: "Select elements by their type",
     selectorName: "Type Selector",
     task: "Select the dresses",
     selector: "dress",
@@ -17,7 +17,7 @@ const levels = [
     `,
   },
   {
-    level: 2,
+    level: 1,
     doThis: "Select the blue dress",
     selectorName: "ID Selector",
     helpTitle: "Select elements with an ID",
@@ -34,13 +34,13 @@ const levels = [
     `,
   },
   {
-    level: 3,
+    level: 2,
     doThis: "Select the dog in the pet house",
     selectorName: "Descendant Selector",
-    helpTitle: "Select elements with an ID",
-    selector: "box dog",
+    helpTitle: "Select an element inside another element",
+    selector: "pethouse dog",
     levelName: "A B",
-    help: "box dog",
+    help: "pethouse dog",
     boardMarkup: `
     <div class="princess"></div>
         <vase></vase>
@@ -51,7 +51,7 @@ const levels = [
       `,
   },
   {
-    level: 4,
+    level: 3,
     doThis: "Select the black dogs",
     selectorName: "Class Selector",
     helpTitle: "Select elements by their class",
@@ -68,7 +68,7 @@ const levels = [
       `,
   },
   {
-    level: 5,
+    level: 4,
     doThis: "Select the orange cat",
     selectorName: "Class Selector",
     helpTitle: "  A1Q4RDCombine the Class Selector",
@@ -86,11 +86,11 @@ const levels = [
       `,
   },
   {
-    level: 6,
+    level: 5,
     doThis: "Select all elements",
     selectorName: "Universal Selector",
     helpTitle: "  Combine the Class Selector",
-    selector: "*",
+    selector: ".castle *",
     levelName: "*",
     help: "*",
     boardMarkup: `
@@ -104,13 +104,13 @@ const levels = [
       `,
   },
   {
-    level: 7,
+    level: 6,
     doThis: "Select everything on the tables",
     selectorName: "Universal Selector",
     helpTitle: " Combine the Universal Selector",
-    selector: "table *",
+    selector: ".table *",
     levelName: "A *",
-    help: "table *",
+    help: ".table *",
     boardMarkup: `
        <div class="princess"></div>
        <div class="table">
@@ -126,7 +126,7 @@ const levels = [
       `,
   },
   {
-    level: 8,
+    level: 7,
     doThis: "Select every vase that's next to a chair",
     selectorName: "Adjacent Sibling Selector",
     helpTitle: "Select an element that directly follows another element",
@@ -147,7 +147,7 @@ const levels = [
       `,
   },
   {
-    level: 9,
+    level: 8,
     doThis: "Select the cat directly on the chair",
     selectorName: "Child Selector",
     helpTitle: "Select direct children of an element",
@@ -169,7 +169,7 @@ const levels = [
        `,
   },
   {
-    level: 10,
+    level: 9,
     doThis: "Select the top cat",
     selectorName: "First Child Pseudo-selector",
     helpTitle: "Select an element that are the only element inside of another one",

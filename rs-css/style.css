@@ -6,6 +6,9 @@ input {
   border: none;
   outline: none;
   background-color: unset;
+  height: 30px;
+  padding-left: 5px;
+  border-radius: 3px;
 }
 
 button {
@@ -188,7 +191,11 @@ button:hover {
   box-shadow: -1px 5px 7px -4px #35101c;
 }
 
-.enter {
+input:focus {
+  background-color: #bd9ff0;
+}
+
+.btn-enter {
   margin-top: 10px;
   width: 73px;
   height: 37px;
@@ -437,4 +444,28 @@ chair.fancy {
   width: 103px;
   height: 210px;
   padding-bottom: 50px;
+}
+
+.shake {
+  animation: shake 0.3s ease-out alternate;
+}
+
+@keyframes shake {
+  from, to { transform: scale(1, 1); }
+  25% { transform: scale(0.98, 1.02); }
+  50% { transform: scale(1.02, 0.98); }
+  75% { transform: scale(0.93, 1.01); }
+}
+
+.animation {
+  animation: bounce 1.5s infinite ease-out alternate;
+}
+/* https://codepen.io/nelledejones/pen/gOOPWrK */
+
+@keyframes bounce {
+  30% { transform: scale(1.01); }
+  40%, 60% { transform: rotate(-2deg) scale(1.02); }
+  50% { transform: rotate(2deg) scale(1.02); }
+  70% { transform: rotate(0deg) scale(1.02); }
+  100% { transform: scale(1); }
 }
