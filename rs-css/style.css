@@ -88,11 +88,13 @@ h1 {
 
 .right-column {
   width: 250px;
-  border: 1px solid green;
+  color: #d5d1d2;
   position: fixed;
   top: 0;
   right: 0;
   min-height: 100vh;
+  background-color: #100408;
+  box-shadow: -3px 0px 14px 0px rgb(115 113 113);
 }
 
 .task-name {
@@ -191,11 +193,16 @@ button:hover {
   box-shadow: -1px 5px 7px -4px #35101c;
 }
 
+button:active {
+  box-shadow: -1px 4px 7px -4px #35101ca9;
+  background-color: rgb(240, 239, 239);
+}
+
 input:focus {
   background-color: #bd9ff0;
 }
 
-.btn-enter {
+.btn {
   margin-top: 10px;
   width: 73px;
   height: 37px;
@@ -211,23 +218,46 @@ input:focus {
 }
 
 .levels-list {
-  padding-left: 41px;
+  padding-left: 5px;
   /* padding: 20px 20px 20px 30px ; */
 }
 
 
 .level-counter {
+  font-size: 1.5rem;
   margin-bottom: 15px;
+  padding: 10px 5px;
 }
 
-.levels-name {
-  padding-bottom: 12px;
+.levels-item {
+  height: 40px;
   padding-left: 3px;
   cursor: pointer;
   font-size: 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  transition: 0.1s;
 }
 
-.levels-name:hover {
+.level-status {
+  width: 30px;
+  height: 30px;
+  background-image: url(./assets/checkmark-lock.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.level-status.level-done {
+  background-image: url(./assets/checkmark-done.png);
+}
+
+.level-status.level-hint {
+  background-image: url(./assets/checkmark-hint.png);
+}
+
+.levels-item:hover {
   background-color: #d26b8cfc;
 }
 
@@ -451,21 +481,50 @@ chair.fancy {
 }
 
 @keyframes shake {
-  from, to { transform: scale(1, 1); }
-  25% { transform: scale(0.98, 1.02); }
-  50% { transform: scale(1.02, 0.98); }
-  75% { transform: scale(0.93, 1.01); }
+
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+
+  25% {
+    transform: scale(0.98, 1.02);
+  }
+
+  50% {
+    transform: scale(1.02, 0.98);
+  }
+
+  75% {
+    transform: scale(0.93, 1.01);
+  }
 }
 
 .animation {
   animation: bounce 1.5s infinite ease-out alternate;
 }
+
 /* https://codepen.io/nelledejones/pen/gOOPWrK */
 
 @keyframes bounce {
-  30% { transform: scale(1.01); }
-  40%, 60% { transform: rotate(-2deg) scale(1.02); }
-  50% { transform: rotate(2deg) scale(1.02); }
-  70% { transform: rotate(0deg) scale(1.02); }
-  100% { transform: scale(1); }
+  30% {
+    transform: scale(1.01);
+  }
+
+  40%,
+  60% {
+    transform: rotate(-2deg) scale(1.02);
+  }
+
+  50% {
+    transform: rotate(2deg) scale(1.02);
+  }
+
+  70% {
+    transform: rotate(0deg) scale(1.02);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
