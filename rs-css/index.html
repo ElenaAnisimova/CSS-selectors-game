@@ -13,15 +13,10 @@
   </header>
   <main>
     <div class="left-column">
-      <h3 class="task-name">Select the plates</h3>
+      <h3 class="task-name"></h3>
       <section class="task-wrapper">
         <div class="castle">
-          <div class="princess"></div>
-          <!-- <wardrobe>
-            <dress></dress>
-            <dress></dress>
-            <dress></dress>
-          </wardrobe> -->
+          <!-- <div class="princess"></div> -->
         </div>
       </section>
       <section class="code-wrapper">
@@ -30,9 +25,14 @@
             <span class="editor-heading">CSS Editor</span>
           </div>
           <div class="css-editor">
-            <form class ="form" onsubmit="return false">
+            <form class="form" onsubmit="return false">
               <input type="text" class="input-selector" placeholder="Type a CSS Selector">
             </form>
+            <div class="show-styles">
+              {<br>
+              <span class="user-styles">/* Styles would go here */</span><br>
+              }
+            </div>
             <form action="">
               <button type="button" class="btn-enter btn">Enter</button>
               <button type="button" class="btn-help btn">Help</button>
@@ -55,19 +55,15 @@
           &lt;/wardrobe&gt; -->
               </div>
             </div>
-
           </div>
         </div>
       </section>
     </div>
     <div class="right-column">
       <section class="levels">
-        <h3 class="level-counter">Level 1 of 10</h3>
+        <h3 class="level-counter">Level <span class="level-nmb">1</span> of 10</h3>
         <ol class="levels-list">
-          <!-- <li class="levels-name">Type selector</li>
-          <li class="levels-name">Class selector</li> -->
-          </ol>
-
+        </ol>
       </section>
     </div>
   </main>

@@ -1,30 +1,12 @@
 import "./style.css";
 import levels from "../sources/sources";
 import levelStatusObj from "../sources/levelsStatuses";
+import Highlight from "../sources/highlight";
 
 // // const cssEditor = document.querySelector(".css-editor") as HTMLElement;
-// const form = document.querySelector(".form") as HTMLFormElement;
 
 const htmlView = document.querySelector(".html-view") as HTMLElement;
-const Highlight = (string: string): string => {
-  string = string.replace(/</g, "&lt;");
-  string = string.replace(/>/g, "&gt;");
-  string = string.replace(
-    /=(["|'](.*?)["|'])/g,
-    '=<span class="string">$1</span>'
-  );
-  string = string.replace(/(\s.*)(?==<)/g, ' <span class="global">$1</span>');
-  string = string.replace(
-    /(?!<span\sclass=".*">.*<\/span>)(&lt;[^\s&;]+)/g,
-    '<span class="method">$1</span>'
-  );
-  string = string.replace(
-    /(?!<span\sclass=".*">.*<\/span>)(\/?&gt;)/g,
-    '<span class="method">$1</span>'
-  );
-  //  console.log(string);
-  return string;
-};
+
 let currLevel = 0;
 const castle = document.querySelector(".castle") as HTMLElement;
 // const princessTemplate = `<div class="princess"></div>` as string;
@@ -81,13 +63,14 @@ function drawLevels(): void {
 drawLevels();
 
 function chooseLevel() {
-  for (let i = 0; i < levelList.children.length; i++)
-    levelList.addEventListener("click", (e) => {
-      const target = e.target as HTMLElement;
-      currLevel = Number(target.getAttribute("levelNumber"));
-      showHtml();
-      addAnimation();
-    });
+  levelList.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    currLevel = Number(target.getAttribute("levelNumber"));
+    showHtml();
+    highlightCurrLvl();
+    addAnimation();
+    changeTask();
+  });
 }
 chooseLevel();
 
@@ -105,17 +88,19 @@ function checkSelectorConditions() {
     codeWrapper.classList.remove("shake");
   }
   if (
-    input.value == levels[currLevel].selector &&
-    document.activeElement == input
+    input.value == levels[currLevel].selector
+    // &&     document.activeElement == input
   ) {
     changeStatus();
     currLevel++;
     input.value = "";
     showHtml();
+    highlightCurrLvl();
     addAnimation();
+    changeTask();
   } else if (
-    input.value !== levels[currLevel].selector &&
-    document.activeElement == input
+    input.value !== levels[currLevel].selector
+    // &&    document.activeElement == input
   ) {
     codeWrapper.classList.add("shake");
     setTimeout(removeClassShake, 400);
@@ -139,8 +124,10 @@ enterBtn.addEventListener("click", checkSelectorConditions);
 let line = 0;
 let count = 0;
 let result = "";
+
 function typeLine() {
   const text = levels[currLevel].help;
+  input.value = "";
   const interval = setTimeout(() => {
     result += text[line][count];
     input.placeholder = result;
@@ -177,7 +164,36 @@ function hintStatus() {
 
 const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
 helpBtn.addEventListener("click", typeHelp);
+const showStylesSpan = document.querySelector(
+  ".user-styles"
+) as HTMLSpanElement;
 
+function highlightInput():void {
+  showStylesSpan.innerHTML = Highlight(input.value);
+}
+input.addEventListener("input", highlightInput);
+const levelItems = document.querySelectorAll(".levels-item");
+console.log(levelItems[0].getAttribute("levelnumber"));
+
+function highlightCurrLvl():void {
+  levelItems.forEach((item:Element) => {
+    item.classList.remove("curr-lvl");
+  });
+  for (let i = 0; i < levelItems.length; i++) {
+    if (levelItems[i].getAttribute("levelnumber") == currLevel.toString()) {
+      levelItems[i].classList.add("curr-lvl");
+    }
+  }
+  //   showHtml();
+  //   addAnimation();
+}
+highlightCurrLvl();
+
+const taskName = document.querySelector(".task-name") as HTMLHeadingElement;
+function changeTask() {
+  taskName.innerText = levels[currLevel].task
+}
+changeTask();
 
 // TODO: FOCUS STAYS ON THE BTN
 // TODO: FIX LEVEL*
