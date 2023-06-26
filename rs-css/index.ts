@@ -2,6 +2,7 @@ import "./style.css";
 import levels from "../sources/sources";
 import levelStatusObjTempl from "../sources/levelsStatuses";
 import Highlight from "../sources/highlight";
+import win from "../sources/winMarkup";
 
 // // const cssEditor = document.querySelector(".css-editor") as HTMLElement;
 
@@ -63,10 +64,7 @@ function chooseLevel(): void {
   levelList.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
     currLevel = Number(target.getAttribute("levelNumber"));
-    showHtml();
-    highlightCurrLvl();
-    addAnimation();
-    changeTask();
+    redrawLvl();
   });
 }
 chooseLevel();
@@ -77,35 +75,34 @@ const levelStatuses = document.querySelectorAll(
   ".level-status"
 ) as NodeListOf<Element>;
 
-function checkSelectorConditions(): void {
-  function changeStatus() {
-    if (levelStatusObj[currLevel].levelStatus == "hint") {
-      levelStatuses[currLevel].classList.add("level-hint");
-    } else levelStatusObj[currLevel].levelStatus = "completed";
-    levelStatuses[currLevel].classList.add("level-done");
-  }
+function changeStatus() {
+  if (levelStatusObj[currLevel].levelStatus == "hint") {
+    levelStatuses[currLevel].classList.add("level-hint");
+  } else levelStatusObj[currLevel].levelStatus = "completed";
+  levelStatuses[currLevel].classList.add("level-done");
+}
 
-  function removeClassShake(): void {
-    codeWrapper.classList.remove("shake");
-  }
-  if (
-    input.value == levels[currLevel].selector
-    // &&     document.activeElement == input
-  ) {
+function addClassShake(): void {
+  codeWrapper.classList.add("shake");
+  setTimeout(() => codeWrapper.classList.remove("shake"), 400);
+}
+
+function winMessage(): void {
+  castle.innerHTML = win.markup;
+}
+
+function checkSelector(): void {
+  if (input.value == levels[currLevel].selector) {
     changeStatus();
     addWinAnimation();
-    input.value = "";
-    currLevel++;
-    setTimeout(showHtml, 800);
-    setTimeout(highlightCurrLvl, 800);
-    setTimeout(addAnimation, 800);
-    setTimeout(changeTask, 800);
-  } else if (
-    input.value !== levels[currLevel].selector
-    // &&    document.activeElement == input
-  ) {
-    codeWrapper.classList.add("shake");
-    setTimeout(removeClassShake, 400);
+    if (currLevel === 9) {
+      winMessage();
+    } else {
+      currLevel++;
+      setTimeout(redrawLvl, 800);
+    }
+  } else if (input.value !== levels[currLevel].selector) {
+    addClassShake();
   }
 }
 
@@ -115,13 +112,13 @@ function checkSelectorEnter(el: {
 }): void {
   if (el.code == "Enter") {
     el.preventDefault();
-    checkSelectorConditions();
+    checkSelector();
   }
 }
 
 window.addEventListener("keydown", checkSelectorEnter);
 const enterBtn = document.querySelector(".btn-enter") as HTMLButtonElement;
-enterBtn.addEventListener("click", checkSelectorConditions);
+enterBtn.addEventListener("click", checkSelector);
 
 let line = 0;
 let count = 0;
@@ -202,12 +199,7 @@ let levelStatusObj = levelStatusObjTempl;
 function startNewGame(): void {
   levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
   currLevel = 0;
-
-  input.value = "";
-  showHtml();
-  highlightCurrLvl();
-  addAnimation();
-  changeTask();
+  redrawLvl();
   levelStatuses.forEach((item) => item.classList.remove("level-hint"));
   levelStatuses.forEach((item) => item.classList.remove("level-done"));
 }
@@ -243,11 +235,7 @@ window.addEventListener("beforeunload", saveGame);
 function startLoadedGame() {
   loadGame();
   drawStatuses();
-  input.value = "";
-  showHtml();
-  highlightCurrLvl();
-  addAnimation();
-  changeTask();
+  redrawLvl();
 }
 
 function startGame() {
@@ -264,5 +252,12 @@ function addWinAnimation(): void {
   roomElements.forEach((el) => el.classList.add("fly"));
 }
 
-// TODO: FOCUS STAYS ON THE BTN
+function redrawLvl() {
+  input.value = "";
+  showHtml();
+  highlightCurrLvl();
+  addAnimation();
+  changeTask();
+}
+
 // TODO: FIX LEVEL*

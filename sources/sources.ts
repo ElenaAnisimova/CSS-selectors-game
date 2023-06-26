@@ -8,7 +8,7 @@ const levels = [
     selector: "dress",
     help: "dress",
     boardMarkup: `
-    <div class="princess"></div>
+         <div class="princess"></div>
     <wardrobe>
       <dress></dress>
       <dress></dress>
@@ -25,12 +25,12 @@ const levels = [
     selector: "#blue",
     help: "#blue",
     boardMarkup: `
-    <div class="princess"></div>
-      <wardrobe>
-        <dress></dress>
-        <coat></coat>
-        <dress id="blue"></dress>
-    </wardrobe>
+       <div class="princess"></div>
+   <wardrobe>
+      <dress></dress>
+      <coat></coat>
+              <dress id="blue"></dress>
+   </wardrobe>
     `,
   },
   {
@@ -43,11 +43,11 @@ const levels = [
     help: "pethouse dog",
     boardMarkup: `
     <div class="princess"></div>
-        <vase></vase>
-        <pethouse>
-          <dog></dog>
-        </pethouse>
-        <dog></dog>
+  <vase></vase>
+  <pethouse>
+      <dog></dog>
+  </pethouse>
+  <dog></dog>
       `,
   },
   {
@@ -60,11 +60,11 @@ const levels = [
     help: ".black",
     boardMarkup: `
     <div class="princess"></div>
-      <pethouse>
-                      <dog class="black"></dog>
-      </pethouse>
-              <dog class="black"></dog>
-              <dog class="brown"></dog>
+  <pethouse>
+          <dog class="black"></dog>
+  </pethouse>
+     <dog class="black"></dog>
+     <dog class="brown"></dog>
       `,
   },
   {

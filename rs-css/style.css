@@ -57,7 +57,7 @@ body {
   overflow-x: hidden;
   width: 100%;
   /* background-image: radial-gradient(100% 215.42% at 0% 0%, #534e4b 0%, #262425 100%); */
-  background-image: radial-gradient(100% 215.42% at 0% 0%, #e3376a9e 0%, #ea759bfc 100%);
+  background-image: radial-gradient(100% 215.42% at 0% 0%, #f00e6174 0%, #680d0dbc 100%);
 }
 
 a {
@@ -346,6 +346,7 @@ footer {
 
 /* LEVELS ELEMENTS  */
 .princess {
+  position: relative;
   background-image: url(./assets/princess.png);
   width: 108px;
   height: 215px;
@@ -453,9 +454,7 @@ cat.orange {
 }
 
 cat.white {
-  /* position: absolute; */
   background-image: url(./assets/white-cat3.png);
-  /* margin-bottom: 35px; */
   z-index: -1;
   width: 51px;
   height: 50px;
@@ -558,6 +557,19 @@ chair.fancy {
   padding-bottom: 50px;
 }
 
+.win-message {
+  background-image: url(./assets/speech-bubble3.png);
+  width: 109px;
+  height: 110px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transform: scale(-1, 1);
+  position: absolute;
+  top: -47px;
+  left: -79px;
+}
+
+/* ANIMATIONS  */
 .shake {
   animation: shake 0.3s ease-out alternate;
 }
@@ -620,6 +632,7 @@ chair.fancy {
     opacity: 1;
     transform: translateX(0);
   }
+
   100% {
     opacity: 0;
     transform: translateX(-320px);
