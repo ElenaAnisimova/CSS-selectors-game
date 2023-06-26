@@ -1,7 +1,4 @@
-const levelStatusObj = [
-  {
-    levelStatus: "not completed",
-  },
+const levelStatusObjTempl = [
   {
     levelStatus: "not completed",
   },
@@ -33,4 +30,4 @@ const levelStatusObj = [
     levelStatus: "not completed",
   },
 ];
-export default levelStatusObj;
+export default levelStatusObjTempl;

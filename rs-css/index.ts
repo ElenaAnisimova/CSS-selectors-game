@@ -1,6 +1,6 @@
 import "./style.css";
 import levels from "../sources/sources";
-import levelStatusObj from "../sources/levelsStatuses";
+import levelStatusObjTempl from "../sources/levelsStatuses";
 import Highlight from "../sources/highlight";
 
 // // const cssEditor = document.querySelector(".css-editor") as HTMLElement;
@@ -25,9 +25,8 @@ function showHtml(): void {
   const syntax = Highlight(code);
   htmlView.innerHTML = syntax;
 }
-showHtml();
 
-function addAnimation() {
+function addAnimation(): void {
   // const roomElements = Array.from(document.querySelectorAll(".castle *"));
   const roomElements: NodeListOf<HTMLElement> = document.querySelectorAll(
     levels[currLevel].selector
@@ -35,7 +34,6 @@ function addAnimation() {
   // console.log(roomElements);
   roomElements.forEach((el) => el.classList.add("animation"));
 }
-addAnimation();
 
 const levelList = document.querySelector(".levels-list") as HTMLOListElement;
 
@@ -62,7 +60,7 @@ function drawLevels(): void {
 
 drawLevels();
 
-function chooseLevel() {
+function chooseLevel(): void {
   levelList.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
     currLevel = Number(target.getAttribute("levelNumber"));
@@ -76,14 +74,18 @@ chooseLevel();
 
 const input = document.querySelector(".input-selector") as HTMLInputElement;
 const codeWrapper = document.querySelector(".code-wrapper") as HTMLDivElement;
-const levelStatuses = document.querySelectorAll(".level-status");
+const levelStatuses = document.querySelectorAll(
+  ".level-status"
+) as NodeListOf<Element>;
 
-function checkSelectorConditions() {
+function checkSelectorConditions(): void {
   function changeStatus() {
     if (levelStatusObj[currLevel].levelStatus == "hint") {
       levelStatuses[currLevel].classList.add("level-hint");
-    } else levelStatuses[currLevel].classList.add("level-done");
+    } else levelStatusObj[currLevel].levelStatus = "completed";
+    levelStatuses[currLevel].classList.add("level-done");
   }
+
   function removeClassShake(): void {
     codeWrapper.classList.remove("shake");
   }
@@ -125,7 +127,7 @@ let line = 0;
 let count = 0;
 let result = "";
 
-function typeLine() {
+function typeLine(): void {
   const text = levels[currLevel].help;
   input.value = "";
   const interval = setTimeout(() => {
@@ -145,21 +147,22 @@ function typeLine() {
   }, 80);
 }
 
-function clearInput() {
+function clearInput(): void {
   setTimeout(() => (input.placeholder = "Type a CSS Selector"), 2500);
   line = 0;
   count = 0;
   result = "";
 }
 
-function typeHelp() {
+function typeHelp(): void {
   typeLine();
   clearInput();
   hintStatus();
 }
 
-function hintStatus() {
+function hintStatus(): void {
   levelStatusObj[currLevel].levelStatus = "hint";
+  console.log(levelStatusObj);
 }
 
 const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
@@ -168,15 +171,15 @@ const showStylesSpan = document.querySelector(
   ".user-styles"
 ) as HTMLSpanElement;
 
-function highlightInput():void {
+function highlightInput(): void {
   showStylesSpan.innerHTML = Highlight(input.value);
 }
 input.addEventListener("input", highlightInput);
 const levelItems = document.querySelectorAll(".levels-item");
 console.log(levelItems[0].getAttribute("levelnumber"));
 
-function highlightCurrLvl():void {
-  levelItems.forEach((item:Element) => {
+function highlightCurrLvl(): void {
+  levelItems.forEach((item: Element) => {
     item.classList.remove("curr-lvl");
   });
   for (let i = 0; i < levelItems.length; i++) {
@@ -184,16 +187,78 @@ function highlightCurrLvl():void {
       levelItems[i].classList.add("curr-lvl");
     }
   }
-  //   showHtml();
-  //   addAnimation();
 }
-highlightCurrLvl();
 
 const taskName = document.querySelector(".task-name") as HTMLHeadingElement;
-function changeTask() {
-  taskName.innerText = levels[currLevel].task
-}
-changeTask();
 
+function changeTask(): void {
+  taskName.innerText = levels[currLevel].task;
+}
+
+const newGameBtn = document.querySelector(".new-game-btn") as HTMLButtonElement;
+
+let levelStatusObj = levelStatusObjTempl;
+
+function startNewGame(): void {
+
+  levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
+  currLevel = 0;
+
+  input.value = "";
+  showHtml();
+  highlightCurrLvl();
+  addAnimation();
+  changeTask();
+  levelStatuses.forEach((item) => item.classList.remove("level-hint"));
+  levelStatuses.forEach((item) => item.classList.remove("level-done"));
+}
+
+newGameBtn.addEventListener("click", () => localStorage.clear());
+newGameBtn.addEventListener("click", startNewGame);
+
+function saveGame(): void {
+  localStorage.setItem("levelsStatuses", JSON.stringify(levelStatusObj));
+  localStorage.setItem("currentLevel", JSON.stringify(currLevel));
+}
+function loadGame(): void {
+  if (localStorage.getItem("levelsStatuses")) {
+   levelStatusObj = JSON.parse(
+      localStorage.getItem("levelsStatuses") || ""
+    );
+    }
+  if (localStorage.getItem("currentLevel")) {
+    currLevel = JSON.parse(localStorage.getItem("currentLevel") || "0");
+  }
+}
+
+function drawStatuses(): void {
+  for (let i = 0; i < levelStatusObj.length; i++) {
+    if (levelStatusObj[i].levelStatus === "hint") {
+      levelStatuses[i].classList.add("level-hint");
+    }
+    if (levelStatusObj[i].levelStatus === "completed") {
+      levelStatuses[i].classList.add("level-done");
+    }
+  }
+}
+window.addEventListener("beforeunload", saveGame);
+
+function startLoadedGame() {
+  loadGame();
+  drawStatuses();
+  input.value = "";
+  showHtml();
+  highlightCurrLvl();
+  addAnimation();
+  changeTask();
+}
+
+function startGame() {
+  if (localStorage.getItem("levelsStatuses")) {
+    startLoadedGame();
+  } else startNewGame();
+}
+
+window.addEventListener("load", startGame);
 // TODO: FOCUS STAYS ON THE BTN
 // TODO: FIX LEVEL*
