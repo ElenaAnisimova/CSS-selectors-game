@@ -16,6 +16,7 @@ input {
 button {
   border: unset;
   cursor: pointer;
+  padding: 0;
 }
 
 .method {
@@ -105,23 +106,7 @@ h1 {
   color: rgb(55, 54, 54);
   /* width: fit-content; */
 }
-.ribbon-highlight{
-  position:relative;
-  margin:0.1em;
-}
-.ribbon-highlight:before{
-  content:"";
-  z-index:-1;
-  left:-0.5em;
-  top:0.1em;
-  border-width:0.5em;
-  border-style:solid;
-  border-color:lightgreen;
-  position:absolute;
-  width:100%;
-  border-left-color:transparent;
-  border-right-color:transparent;
-}
+
 .task-wrapper {
   margin: 0 auto;
   width: 90%;
@@ -214,6 +199,8 @@ h1 {
 
 button:hover {
   box-shadow: -1px 5px 7px -4px #35101c;
+  transition: 0.15s ease-in-out;
+  background-color: #3e2a31c7;
 }
 
 button:active {
@@ -234,13 +221,24 @@ input:focus {
   /* border: 1px grey solid; */
   border-radius: 4px;
   box-shadow: -1px 5px 4px -4px #52192b;
+  transition: 0.15s ease-in-out;
+}
+
+.new-game-form {
+  display: flex;
+
 }
 
 .new-game-btn {
-  width: 150px;
-  height: 50px;
-  font-size: 24px;
+  width: 161px;
+  height: 40px;
+  font-size: 20px;
+  margin: 15px auto 0 auto;
+  border: 2px solid rgb(146, 143, 143);
+  transition: 0.15s ease-in-out;
 }
+
+
 
 .levels {
   display: flex;
@@ -293,6 +291,57 @@ input:focus {
 
 .curr-lvl {
   background-color: #d26b8c72;
+}
+
+footer {
+  width: 250px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333333ef;
+  color: #d5d1d2;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  /* background-color: #100408; */
+  /* box-shadow: -3px 0px 14px 0px rgb(115 113 113); */
+}
+
+.footer-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  font-weight: bold;
+  font-size: 12px;
+  /* height: 65px; */
+}
+
+.text-link a {
+  color: var(--main-color-grey);
+  text-decoration: none;
+  transition: color 0.4s;
+}
+
+.text-link a:hover {
+  color: #d2d4d9;
+  font-weight: bold;
+}
+
+.text-image {
+  background: url(./assets/rs_school_js.png);
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  width: 70px;
+  height: 27px;
+}
+
+.text-image:hover {
+  background-color: #ffffff8a;
+  border-radius: 5px;
 }
 
 /* LEVELS ELEMENTS  */
@@ -559,5 +608,20 @@ chair.fancy {
 
   100% {
     transform: scale(1);
+  }
+}
+
+.fly {
+  animation: fly 0.8s ease-out;
+}
+
+@keyframes fly {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-320px);
   }
 }

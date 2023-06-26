@@ -31,7 +31,6 @@ function addAnimation(): void {
   const roomElements: NodeListOf<HTMLElement> = document.querySelectorAll(
     levels[currLevel].selector
   );
-  // console.log(roomElements);
   roomElements.forEach((el) => el.classList.add("animation"));
 }
 
@@ -94,12 +93,13 @@ function checkSelectorConditions(): void {
     // &&     document.activeElement == input
   ) {
     changeStatus();
-    currLevel++;
+    addWinAnimation();
     input.value = "";
-    showHtml();
-    highlightCurrLvl();
-    addAnimation();
-    changeTask();
+    currLevel++;
+    setTimeout(showHtml, 800);
+    setTimeout(highlightCurrLvl, 800);
+    setTimeout(addAnimation, 800);
+    setTimeout(changeTask, 800);
   } else if (
     input.value !== levels[currLevel].selector
     // &&    document.activeElement == input
@@ -200,7 +200,6 @@ const newGameBtn = document.querySelector(".new-game-btn") as HTMLButtonElement;
 let levelStatusObj = levelStatusObjTempl;
 
 function startNewGame(): void {
-
   levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
   currLevel = 0;
 
@@ -222,10 +221,8 @@ function saveGame(): void {
 }
 function loadGame(): void {
   if (localStorage.getItem("levelsStatuses")) {
-   levelStatusObj = JSON.parse(
-      localStorage.getItem("levelsStatuses") || ""
-    );
-    }
+    levelStatusObj = JSON.parse(localStorage.getItem("levelsStatuses") || "");
+  }
   if (localStorage.getItem("currentLevel")) {
     currLevel = JSON.parse(localStorage.getItem("currentLevel") || "0");
   }
@@ -260,5 +257,12 @@ function startGame() {
 }
 
 window.addEventListener("load", startGame);
+
+function addWinAnimation(): void {
+  const roomElements: NodeListOf<HTMLElement> =
+    document.querySelectorAll(".animation");
+  roomElements.forEach((el) => el.classList.add("fly"));
+}
+
 // TODO: FOCUS STAYS ON THE BTN
 // TODO: FIX LEVEL*
