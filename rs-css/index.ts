@@ -32,11 +32,10 @@ function showHtml(): void {
   }
   hoverOverElem();
   hoverOverHTML();
+  createHTMLHint();
 }
 
 function hoverOverElem() {
-  // const roomElements = document.querySelectorAll(".castle *");
-
   const codeStrings = document.querySelectorAll(".task-elements");
   castle.addEventListener("mouseover", (el) => {
     const targetEl = el.target as HTMLElement;
@@ -47,6 +46,7 @@ function hoverOverElem() {
       ) {
         codeStrings[i].classList.add("highlight-str");
         targetEl.classList.add("highlight-el");
+        targetEl.querySelector(".info-div")?.classList.add("show-element");
       }
     }
   });
@@ -56,27 +56,16 @@ function hoverOverElem() {
     for (let i = 0; i < codeStrings.length; i++) {
       codeStrings[i].classList.remove("highlight-str");
       targetEl.classList.remove("highlight-el");
+      targetEl.querySelector(".info-div")?.classList.remove("show-element");
     }
   });
 }
+
 function hoverOverHTML() {
   const roomElements = document.querySelectorAll(".castle *");
   const codeStrings: NodeListOf<HTMLElement> =
     document.querySelectorAll(".task-elements");
 
-  // function checkAttr(el: { getAttribute: (arg0: string) => string }) {
-  //   const res: string = el.getAttribute("element");
-  //   return res;
-  // if (el.getAttribute("element") === roomElements[i].getAttribute("element")) {
-  //   roomElements[i].classList.add("highlight-str");
-  // }
-  // }
-  //   codeStrings.forEach(function(elem) {
-  //     elem.addEventListener("mouseover", function() {
-  //       const res = elem.getAttribute("element");
-  //       return res;
-  //     });
-  // });
   codeStrings.forEach((item) =>
     item.addEventListener("mouseover", (e) => {
       e.stopPropagation();
@@ -87,19 +76,22 @@ function hoverOverHTML() {
         ) {
           roomElements[i].classList.add("highlight-el");
           item.classList.add("highlight-str");
+          roomElements[i].querySelector(".info-div")?.classList.add("show-element");
         }
       }
     })
   );
 
   codeStrings.forEach((item) =>
-  htmlView.addEventListener("mouseout", (e) => {
-    e.stopPropagation();
-    for (let i = 0; i < roomElements.length; i++) {
-      roomElements[i].classList.remove("highlight-el");
-      item.classList.remove("highlight-str");
-    }
-  }));
+    htmlView.addEventListener("mouseout", (e) => {
+      e.stopPropagation();
+      for (let i = 0; i < roomElements.length; i++) {
+        roomElements[i].classList.remove("highlight-el");
+        item.classList.remove("highlight-str");
+        roomElements[i].querySelector(".info-div")?.classList.remove("show-element");
+      }
+    })
+  );
 }
 
 function addAnimation(): void {
@@ -333,5 +325,33 @@ function redrawLvl() {
   changeTask();
 }
 
+function createHTMLHint() {
+  const gameElements = document.querySelectorAll(".castle *");
+
+  function createInfoEl(elem: Element) {
+    const infoEl = document.createElement("div");
+    infoEl.className = "info-div";
+    elem.prepend(infoEl); //beforeallchildren!!!!!!!
+    infoEl.innerText = parseHtml(elem.outerHTML);
+  }
+  gameElements.forEach((item) => createInfoEl(item));
+}
+
+function parseHtml(str: string): string {
+  const indexInf = str.indexOf(`<div class="info-div"></div>`);
+  const sliceinfOut = str.slice(0, indexInf) + str.slice(indexInf + 28);
+  function cutElem(str: string) {
+    const indexEl = str.indexOf(" element");
+    const sliceElOut = str.slice(0, indexEl) + str.slice(indexEl + 12);
+    if (sliceElOut.indexOf(" element") === -1) {
+      return sliceElOut;
+    } else return cutElem(sliceElOut);
+  }
+  return cutElem(sliceinfOut);
+}
+// function showHTMLHint () {
+
+// }
 // TODO: FIX LEVEL*
 // fix width when highlitinh text
+// fix the chair height
