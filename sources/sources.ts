@@ -7,14 +7,24 @@ const levels = [
     taskDescription: "Select elements by their type",
     selector: "dress",
     help: "dress",
-    boardMarkup: `
-         <div class="princess"></div>
+    roomElements: `
+     <div class="princess"></div>
     <wardrobe>
       <dress></dress>
       <dress></dress>
       <dress></dress>
     </wardrobe>
     `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      "",
+      `<wardrobe>`,
+      `<dress></dress>`,
+      `<dress></dress>`,
+      `<dress></dress>`,
+      `</wardrobe>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="for-text"></div></div>`,
   },
   {
     level: 1,
@@ -24,14 +34,24 @@ const levels = [
     taskDescription: "Select elements with an ID",
     selector: "#blue",
     help: "#blue",
-    boardMarkup: `
-       <div class="princess"></div>
-   <wardrobe>
-      <dress></dress>
-      <coat></coat>
-              <dress id="blue"></dress>
-   </wardrobe>
-    `,
+    roomElements: `
+         <div class="princess"></div>,
+           <wardrobe>
+        <dress></dress>
+        <coat></coat>
+        <dress id="blue"></dress>
+     </wardrobe>
+      `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      "",
+      `<wardrobe>`,
+      `<dress></dress>`,
+      `<coat></coat>`,
+      `<dress id="blue"></dress>`,
+      `</wardrobe>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="for-text"></div></div>`,
   },
   {
     level: 2,
@@ -41,14 +61,24 @@ const levels = [
     taskDescription: "Select an element inside another element",
     selector: "pethouse dog",
     help: "pethouse dog",
-    boardMarkup: `
-    <div class="princess"></div>
-  <vase></vase>
-  <pethouse>
+    roomElements: `
+      <div class="princess"></div>
+      <vase></vase>
+      <pethouse>
+        <dog></dog>
+      </pethouse>
       <dog></dog>
-  </pethouse>
-  <dog></dog>
-      `,
+        `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      `<vase></vase>`,
+      "",
+      `<pethouse>`,
+      `<dog></dog>`,
+      `</pethouse>`,
+      `<dog></dog>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div>`,
   },
   {
     level: 3,
@@ -58,14 +88,24 @@ const levels = [
     taskDescription: "Select elements by their class",
     selector: ".black",
     help: ".black",
-    boardMarkup: `
-    <div class="princess"></div>
-  <pethouse>
-          <dog class="black"></dog>
-  </pethouse>
-     <dog class="black"></dog>
-     <dog class="brown"></dog>
-      `,
+    roomElements: `
+      <div class="princess"></div>
+      <pethouse>
+        <dog class="black"></dog>
+      </pethouse>
+      <dog class="black"></dog>
+      <dog class="brown"></dog>
+        `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      "",
+      `<pethouse>`,
+      `<dog class="black"></dog>`,
+      `</pethouse>`,
+      `<dog class="black"></dog>`,
+      `<dog class="brown"></dog>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div><div class="task-elements"></div>`,
   },
   {
     level: 4,
@@ -75,117 +115,205 @@ const levels = [
     taskDescription: "  A1Q4RDCombine the Class Selector",
     selector: "cat.orange",
     help: "cat.orange",
-    boardMarkup: `
-     <div class="princess"></div>
-  <pethouse>
-          <dog class="black"></dog>
-  </pethouse>
-     <cat class="orange"></cat>
-     <dog class="brown"></dog>
-     <cat class="black"></cat>
-      `,
+    roomElements: `
+       <div class="princess"></div>
+       <pethouse>
+            <dog class="black"></dog>
+       </pethouse>
+       <cat class="orange"></cat>
+       <dog class="brown"></dog>
+       <cat class="black"></cat>
+        `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      "",
+      `<pethouse>`,
+      `<dog class="black"></dog>`,
+      `</pethouse>`,
+      `<cat class="orange"></cat>`,
+      `<dog class="brown"></dog>`,
+      `<cat class="black"></cat>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div>`,
   },
+  //   {
+  //     level: 5,
+  //     levelName: "*",
+  //     selectorName: "Universal Selector",
+  //     task: "Select all elements",
+  //     taskDescription: "  Combine the Class Selector",
+  //     selector: ".castle *",
+  //     help: ".castle *",
+  //     boardMarkup: `
+  //   <pethouse>
+  //           <cat class="orange"></cat>
+  //   </pethouse>
+  //      <vase></vase>
+  //      <dog class="brown"></dog>
+  //      <cat class="black"></cat>
+  //      <box></box>
+  //       `,
+  //       boardMarkup2: [
+  //         `<div class="princess"></div>`,
+  //         `<wardrobe>
+  //         <dress></dress>
+  //         <dress></dress>
+  //         <dress></dress>
+  //       </wardrobe>`,
+  //         `<dress></dress>`,
+  //         `<dress></dress>`,
+  //         `<dress></dress>`,
+  //       ],
+  //     divsNames: ["wardrobe", "dress", "dress", "dress"],
+  //   },
+   // }
   {
     level: 5,
-    levelName: "*",
-    selectorName: "Universal Selector",
-    task: "Select all elements",
-    taskDescription: "  Combine the Class Selector",
-    selector: ".castle *",
-    help: ".castle *",
-    boardMarkup: `
-  <pethouse>
-          <cat class="orange"></cat>
-  </pethouse>
-     <vase></vase>
-     <dog class="brown"></dog>
-     <cat class="black"></cat>
-     <box></box>
-      `,
-  },
-  {
-    level: 6,
     levelName: "A *",
     selectorName: "Universal Selector",
     task: "Select everything on the tables",
     taskDescription: " Combine the Universal Selector",
     selector: ".table *",
     help: ".table *",
-    boardMarkup: `
-       <div class="princess"></div>
-       <div class="table">
-      <chicken></chicken>
-   </div>
-       <div class="table">
-             <vase class="small"></vase>
-   </div>
-   <box></box>
-       <div class="table">
-           <cat class="black"></cat>
-   </div>
-      `,
+    roomElements: `
+         <div class="princess"></div>
+         <div class="table">
+            <chicken></chicken>
+         </div>
+         <box></box>
+         <div class="table">
+            <vase class="small"></vase>
+         </div>
+         <div class="table">
+            <cat class="black"></cat>
+         </div>
+        `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      "",
+      `<div class="table">`,
+      `<chicken></chicken>`,
+      `</div>`,
+      `<box></box>`,
+      "",
+      `<div class="table">`,
+      `<vase class="small"></vase>`,
+      `</div>`,
+      "",
+      `<div class="table">`,
+      `<cat class="black"></cat>`,
+      `</div>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div>`,
   },
   {
-    level: 7,
+    level: 6,
     levelName: "A + B",
     selectorName: "Adjacent Sibling Selector",
     task: "Select every vase that's next to a chair",
     taskDescription: "Select an element that directly follows another element",
     selector: "chair + vase",
     help: "chair + vase",
-    boardMarkup: `
-  <chair>
-         <cat class="black"></cat>
-  </chair>
-  <vase></vase>
-  <chair></chair>
-    <vase class="small"></vase>
-  <vase></vase>
+    roomElements: `
+    <chair>
+      <cat class="black"></cat>
+    </chair>
+    <vase></vase>
+    <chair></chair>
+      <vase class="small"></vase>
+    <vase></vase>
     <div class="table">
-           <vase class="small"></vase>
-  </div>
-      `,
+         <vase class="small"></vase>
+    </div>
+        `,
+    htmlMarkup: [
+      "",
+      `<chair>`,
+      `<cat class="black"></cat>`,
+      `</chair>`,
+      `<vase></vase>`,
+      `<chair></chair>`,
+      `<vase class="small"></vase>`,
+      `<vase></vase>`,
+      "",
+      `<div class="table">`,
+      `<vase class="small"></vase>`,
+      `</div>`,
+    ],
+    htmlTemplate: `<div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div>`,
   },
   {
-    level: 8,
+    level: 7,
     levelName: "A > B",
     selectorName: "Child Selector",
     task: "Select the cat directly on the chair",
     taskDescription: "Select direct children of an element",
     selector: "chair > cat",
     help: "chair > cat",
-    boardMarkup: `
-  <cat class="white"></cat>
- <chair>
+    roomElements: `
+    <cat class="white"></cat>
+    <chair>
         <cat class="white"></cat>
- </chair>
-  <cat class="orange"></cat>
- <chair></chair>
- <chair>
-    <basket>
-              <cat class="white"></cat>
-    </basket>
- </chair>     
-       `,
+    </chair>
+    <cat class="orange"></cat>
+    <chair></chair>
+    <chair>
+      <basket>
+          <cat class="white"></cat>
+      </basket>
+    </chair>
+         `,
+    htmlMarkup: [
+      `<cat class="white"></cat>`,
+      "",
+      `<chair>`,
+      `<cat class="white"></cat>`,
+      `</chair>`,
+      `<cat class="orange"></cat>`,
+      `<chair></chair>`,
+      "",
+      `<chair>`,
+      "",
+      `<basket>`,
+      `<cat class="white"></cat>`,
+      `</basket>`,
+      `</chair>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="for-text"></div></div>`,
   },
   {
-    level: 9,
+    level: 8,
     levelName: ":first-child",
     selectorName: "First Child Pseudo-selector",
     task: "Select the top cat",
-    taskDescription: "Select an element that are the only element inside of another one",
+    taskDescription:
+      "Select an element that are the only element inside of another one",
     selector: "cat:first-child",
     help: "cat:first-child",
-    boardMarkup: `
+    roomElements: `
+    <div class="princess"></div>
     <chair class="fancy"></chair>
-  <dog></dog>
+    <dog></dog>
     <chair class="fancy">
-         <cat class="black"></cat>
-         <cat class="black"></cat>
-         <cat class="black"></cat>
-  </chair>
-  <basket></basket>
-        `,
+           <cat class="black"></cat>
+           <cat class="black"></cat>
+           <cat class="black"></cat>
+    </chair>
+    <basket></basket>
+          `,
+    htmlMarkup: [
+      `<div class="princess"></div>`,
+      `<chair class="fancy"></chair>`,
+      `<dog></dog>`,
+      '',
+      `<chair class="fancy">`,
+      `<cat class="black"></cat>`,
+      `<cat class="black"></cat>`,
+      `<cat class="black"></cat>`,
+      `</chair>`,
+      `<basket></basket>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div>`,
   },
 ];
 export default levels;

@@ -18,3 +18,8 @@ const Highlight = (string: string): string => {
   return string;
 };
 export default Highlight
+  // const result = [];
+  // for (let i = 0; i < arr.length; i++) {
+  //   result.push(arr[i].outerHTML);
+  // }
+  // console.log(result);

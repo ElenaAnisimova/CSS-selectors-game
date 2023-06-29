@@ -10,25 +10,99 @@ const htmlView = document.querySelector(".html-view") as HTMLElement;
 
 let currLevel = 0;
 const castle = document.querySelector(".castle") as HTMLElement;
-// const princessTemplate = `<div class="princess"></div>` as string;
+
 function showHtml(): void {
-  // const arr = document.querySelectorAll(".castle *");
-  // const result = [];
-  // for (let i = 0; i < arr.length; i++) {
-  //   result.push(arr[i].outerHTML);
+  castle.innerHTML = levels[currLevel].roomElements;
+  const gameElements = document.querySelectorAll(".castle *");
+  for (let i = 0; i < gameElements.length; i++) {
+    gameElements[i].setAttribute("element", i.toString());
+  }
 
+  htmlView.innerHTML = levels[currLevel].htmlTemplate;
+  const allStrings = document.querySelectorAll(".html-view *");
+  for (let i = 0; i < allStrings.length; i++) {
+    if (allStrings[i].children.length == 0) {
+      allStrings[i].innerHTML = Highlight(levels[currLevel].htmlMarkup[i]);
+    }
+  }
+
+  const codeStrings = document.querySelectorAll(".task-elements");
+  for (let i = 0; i < codeStrings.length; i++) {
+    codeStrings[i].setAttribute("element", i.toString());
+  }
+  hoverOverElem();
+  hoverOverHTML();
+}
+
+function hoverOverElem() {
+  // const roomElements = document.querySelectorAll(".castle *");
+
+  const codeStrings = document.querySelectorAll(".task-elements");
+  castle.addEventListener("mouseover", (el) => {
+    const targetEl = el.target as HTMLElement;
+    for (let i = 0; i < codeStrings.length; i++) {
+      if (
+        targetEl.getAttribute("element") ===
+        codeStrings[i].getAttribute("element")
+      ) {
+        codeStrings[i].classList.add("highlight-str");
+        targetEl.classList.add("highlight-el");
+      }
+    }
+  });
+
+  castle.addEventListener("mouseout", (el) => {
+    const targetEl = el.target as HTMLElement;
+    for (let i = 0; i < codeStrings.length; i++) {
+      codeStrings[i].classList.remove("highlight-str");
+      targetEl.classList.remove("highlight-el");
+    }
+  });
+}
+function hoverOverHTML() {
+  const roomElements = document.querySelectorAll(".castle *");
+  const codeStrings: NodeListOf<HTMLElement> =
+    document.querySelectorAll(".task-elements");
+
+  // function checkAttr(el: { getAttribute: (arg0: string) => string }) {
+  //   const res: string = el.getAttribute("element");
+  //   return res;
+  // if (el.getAttribute("element") === roomElements[i].getAttribute("element")) {
+  //   roomElements[i].classList.add("highlight-str");
   // }
+  // }
+  //   codeStrings.forEach(function(elem) {
+  //     elem.addEventListener("mouseover", function() {
+  //       const res = elem.getAttribute("element");
+  //       return res;
+  //     });
+  // });
+  codeStrings.forEach((item) =>
+    item.addEventListener("mouseover", (e) => {
+      e.stopPropagation();
+      for (let i = 0; i < roomElements.length; i++) {
+        if (
+          item.getAttribute("element") ===
+          roomElements[i].getAttribute("element")
+        ) {
+          roomElements[i].classList.add("highlight-el");
+          item.classList.add("highlight-str");
+        }
+      }
+    })
+  );
 
-  // console.log(result);
-
-  castle.innerHTML = levels[currLevel].boardMarkup;
-  const code = levels[currLevel].boardMarkup;
-  const syntax = Highlight(code);
-  htmlView.innerHTML = syntax;
+  codeStrings.forEach((item) =>
+  htmlView.addEventListener("mouseout", (e) => {
+    e.stopPropagation();
+    for (let i = 0; i < roomElements.length; i++) {
+      roomElements[i].classList.remove("highlight-el");
+      item.classList.remove("highlight-str");
+    }
+  }));
 }
 
 function addAnimation(): void {
-  // const roomElements = Array.from(document.querySelectorAll(".castle *"));
   const roomElements: NodeListOf<HTMLElement> = document.querySelectorAll(
     levels[currLevel].selector
   );
@@ -42,7 +116,6 @@ function drawLevels(): void {
     const listItem = document.createElement("li");
     listItem.className = "levels-item";
     listItem.setAttribute("levelNumber", levels[i].level.toString());
-    // listItem.id = levels[i].level.toString();
     levelList.appendChild(listItem);
 
     const levelStatus = document.createElement("div");
@@ -92,6 +165,8 @@ function winMessage(): void {
 }
 
 function checkSelector(): void {
+  const arr = document.querySelectorAll(".castle *");
+  console.log(arr);
   if (input.value == levels[currLevel].selector) {
     changeStatus();
     addWinAnimation();
@@ -159,7 +234,6 @@ function typeHelp(): void {
 
 function hintStatus(): void {
   levelStatusObj[currLevel].levelStatus = "hint";
-  console.log(levelStatusObj);
 }
 
 const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
@@ -173,7 +247,6 @@ function highlightInput(): void {
 }
 input.addEventListener("input", highlightInput);
 const levelItems = document.querySelectorAll(".levels-item");
-console.log(levelItems[0].getAttribute("levelnumber"));
 
 function highlightCurrLvl(): void {
   levelItems.forEach((item: Element) => {
@@ -261,3 +334,4 @@ function redrawLvl() {
 }
 
 // TODO: FIX LEVEL*
+// fix width when highlitinh text

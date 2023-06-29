@@ -120,8 +120,8 @@ h1 {
   width: 705px;
   height: 315px;
   background-image: url(./assets/backgroundRed.jpg);
-  background-size: cover;
   background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
   border-radius: 4px;
   display: flex;
@@ -130,7 +130,7 @@ h1 {
   justify-content: center;
   align-items: flex-end;
   box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.6);
-  z-index: -5;
+  z-index: 1;
 }
 
 .code-wrapper {
@@ -171,6 +171,17 @@ h1 {
   color: var(--text-color);
 }
 
+.highlight-str {
+  font-weight: bold;
+}
+
+.highlight-el {
+  outline: 3px groove #f084b14a;
+  outline-offset: 5px;
+  box-shadow: 0px 0px 5px 8px rgba(223, 231, 237, 0.55);
+  background-color: rgba(223, 231, 237, 0.55);
+  border-radius: 3px;
+}
 
 .css-editor {
   background-color: rgb(238, 238, 225);
@@ -190,6 +201,7 @@ h1 {
 
 .code {
   padding-left: 15px;
+  padding-top: 15px;
   display: block;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -360,7 +372,7 @@ wardrobe {
   position: relative;
   background-image: url(./assets/shkaf2.png);
   width: 390px;
-  height: 302px;
+  height: 292px;
   background-repeat: no-repeat;
   background-size: contain;
   display: flex;
@@ -395,18 +407,6 @@ coat {
   background-size: contain;
 }
 
-box {
-  position: relative;
-  background-image: url(./assets/gift-box.png);
-  display: block;
-  width: 85px;
-  height: 300px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: bottom;
-
-}
-
 pethouse {
   position: relative;
   background-image: url(./assets/kennel.png);
@@ -426,7 +426,7 @@ dog {
   background-image: url(./assets/dog-pug.png);
   display: block;
   width: 71px;
-  height: 300px;
+  height: 80px;
   z-index: 10;
   background-repeat: no-repeat;
   background-size: contain;
@@ -481,7 +481,7 @@ vase.small {
 box {
   position: relative;
   /* position: static; */
-  background-image: url(./assets/gift-box-cut.png);
+  background-image: url(./assets/gift-box.png);
   display: flex;
   width: 70px;
   height: 70px;
