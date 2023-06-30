@@ -76,7 +76,9 @@ function hoverOverHTML() {
         ) {
           roomElements[i].classList.add("highlight-el");
           item.classList.add("highlight-str");
-          roomElements[i].querySelector(".info-div")?.classList.add("show-element");
+          roomElements[i]
+            .querySelector(".info-div")
+            ?.classList.add("show-element");
         }
       }
     })
@@ -88,7 +90,9 @@ function hoverOverHTML() {
       for (let i = 0; i < roomElements.length; i++) {
         roomElements[i].classList.remove("highlight-el");
         item.classList.remove("highlight-str");
-        roomElements[i].querySelector(".info-div")?.classList.remove("show-element");
+        roomElements[i]
+          .querySelector(".info-div")
+          ?.classList.remove("show-element");
       }
     })
   );
@@ -98,7 +102,9 @@ function addAnimation(): void {
   const roomElements: NodeListOf<HTMLElement> = document.querySelectorAll(
     levels[currLevel].selector
   );
+
   roomElements.forEach((el) => el.classList.add("animation"));
+  // roomElements.forEach((el) => el.classList.add("task"));
 }
 
 const levelList = document.querySelector(".levels-list") as HTMLOListElement;
@@ -157,9 +163,18 @@ function winMessage(): void {
 }
 
 function checkSelector(): void {
-  const arr = document.querySelectorAll(".castle *");
-  console.log(arr);
-  if (input.value == levels[currLevel].selector) {
+  const taskElements = document.querySelectorAll(".animation");
+  const userElements = document.querySelectorAll(input.value);
+
+  const array1 = Array.from(taskElements);
+  const array2 = Array.from(userElements);
+  const compareElem =
+    array1.length == array2.length &&
+    array1.every(function (element, index) {
+      return element === array2[index];
+    });
+
+  if (compareElem) {
     changeStatus();
     addWinAnimation();
     if (currLevel === 9) {
@@ -168,7 +183,7 @@ function checkSelector(): void {
       currLevel++;
       setTimeout(redrawLvl, 800);
     }
-  } else if (input.value !== levels[currLevel].selector) {
+  } else if (!compareElem) {
     addClassShake();
   }
 }
@@ -238,6 +253,7 @@ function highlightInput(): void {
   showStylesSpan.innerHTML = Highlight(input.value);
 }
 input.addEventListener("input", highlightInput);
+
 const levelItems = document.querySelectorAll(".levels-item");
 
 function highlightCurrLvl(): void {
@@ -331,7 +347,7 @@ function createHTMLHint() {
   function createInfoEl(elem: Element) {
     const infoEl = document.createElement("div");
     infoEl.className = "info-div";
-    elem.prepend(infoEl); //beforeallchildren!!!!!!!
+    elem.prepend(infoEl);
     infoEl.innerText = parseHtml(elem.outerHTML);
   }
   gameElements.forEach((item) => createInfoEl(item));
@@ -349,9 +365,20 @@ function parseHtml(str: string): string {
   }
   return cutElem(sliceinfOut);
 }
-// function showHTMLHint () {
 
-// }
-// TODO: FIX LEVEL*
-// fix width when highlitinh text
-// fix the chair height
+const burgerBtn = document.querySelector(".burger-btn") as HTMLElement;
+const openMenu = document.querySelector(".right-column") as HTMLElement;
+const footer = document.querySelector(".footer") as HTMLElement;
+
+function openLvlMenu() {
+  openMenu.classList.toggle("menu_active");
+  footer.classList.toggle("menu_active");
+  burgerBtn.classList.toggle("burger-icon_active");
+}
+
+burgerBtn.addEventListener("click", openLvlMenu);
+
+// TODO: fix chair height lvl 7, 8
+// fix level counter
+// fix bug with hiny status
+// level 10 redo

@@ -166,7 +166,7 @@ const levels = [
   //       ],
   //     divsNames: ["wardrobe", "dress", "dress", "dress"],
   //   },
-   // }
+  // }
   {
     level: 5,
     levelName: "A *",
@@ -283,13 +283,13 @@ const levels = [
   },
   {
     level: 8,
-    levelName: ":first-child",
-    selectorName: "First Child Pseudo-selector",
-    task: "Select the top cat",
+    levelName: ":last-child",
+    selectorName: "Last Child Pseudo-selector",
+    task: "Select the lower cat",
     taskDescription:
-      "Select an element that are the only element inside of another one",
-    selector: "cat:first-child",
-    help: "cat:first-child",
+      "Select the last element inside of another elemente",
+    selector: "cat:last-child",
+    help: "cat:last-child",
     roomElements: `
     <div class="princess"></div>
     <chair class="fancy"></chair>
@@ -305,7 +305,7 @@ const levels = [
       `<div class="princess"></div>`,
       `<chair class="fancy"></chair>`,
       `<dog></dog>`,
-      '',
+      "",
       `<chair class="fancy">`,
       `<cat class="black"></cat>`,
       `<cat class="black"></cat>`,
@@ -314,6 +314,35 @@ const levels = [
       `<basket></basket>`,
     ],
     htmlTemplate: `<div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div>`,
+  },
+  {
+    level: 9,
+    levelName: ":empty",
+    selectorName: "Empty Selector",
+    task: "Select the empty tables",
+    taskDescription: "Select elements that don't have children",
+    selector: "basket:empty",
+    help: ".table:empty",
+    roomElements: `
+    <chair class="fancy"></chair>
+    <div class="table"></div>
+    <basket></basket>
+    <div class="table">
+    <dog></dog>
+    </div>
+    <div class="table"></div>
+          `,
+    htmlMarkup: [
+      `<chair class="fancy"></chair>`,
+      `<div class="table"></div>`,
+      `<basket></basket>`,
+      "",
+      `<div class="table">`,
+      `<dog></dog>`,
+      `</div>`,
+      `<div class="table"></div>`,
+    ],
+    htmlTemplate: `<div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"></div><div class="task-elements"><div class="for-text"></div><div class="task-elements"></div><div class="for-text"></div></div><div class="task-elements"></div>`,
   },
 ];
 export default levels;

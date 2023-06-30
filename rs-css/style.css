@@ -80,9 +80,10 @@ h1 {
 }
 
 .header {
-  padding: 7px;
+  padding: 7px 12px 7px 7px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  height: 55px;
 }
 
 .left-column {
@@ -95,9 +96,11 @@ h1 {
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 10;
   min-height: 100vh;
   background-color: #100408;
   box-shadow: -3px 0px 14px 0px rgb(115 113 113);
+  transition: 0.6s ease-out;
 }
 
 .task-name {
@@ -135,10 +138,12 @@ h1 {
 
 .info-div {
   position: absolute;
-  background-color: #d2d4d9;
+  color: #d5d1d2;
+  background-color: #232324;
   border: 1px solid black;
-  top: -10px;
-  right: -100px;
+  padding: 4px;
+  top: -60px;
+  right: -50px;
   font-size: 12px;
   border-radius: 4px;
   display: none;
@@ -149,6 +154,7 @@ h1 {
   display: block;
   z-index: 20;
 }
+
 .code-wrapper {
   margin: 15px auto;
   width: 90%;
@@ -335,7 +341,7 @@ input:focus {
   background-color: #d26b8c72;
 }
 
-footer {
+.footer {
   width: 250px;
   height: 50px;
   display: flex;
@@ -346,9 +352,8 @@ footer {
   position: fixed;
   bottom: 0;
   right: 0;
-
-  /* background-color: #100408; */
-  /* box-shadow: -3px 0px 14px 0px rgb(115 113 113); */
+  z-index: 11;
+  transition: 0.6s ease-out;
 }
 
 .footer-list {
@@ -369,7 +374,7 @@ footer {
 }
 
 .text-link a:hover {
-  color: #d2d4d9;
+  color: #f0f0f3;
   font-weight: bold;
 }
 
@@ -395,7 +400,7 @@ footer {
   background-repeat: no-repeat;
   background-size: contain;
   margin-top: 108px;
-  }
+}
 
 wardrobe {
   position: relative;
@@ -414,8 +419,8 @@ dress {
   position: relative;
   background-image: url(./assets/pink-dress.png);
   display: block;
-  width: 66px;
-  height: 165px;
+  width: 60px;
+  height: 158px;
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -428,9 +433,9 @@ coat {
   position: relative;
   background-image: url(./assets/coat-svgrepo-com.png);
   display: block;
-  width: 85px;
-  height: 165px;
-   background-repeat: no-repeat;
+  width: 80px;
+  height: 155px;
+  background-repeat: no-repeat;
   background-size: contain;
 }
 
@@ -493,7 +498,7 @@ vase {
   display: block;
   width: 85px;
   height: 126px;
-   background-repeat: no-repeat;
+  background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom;
 }
@@ -587,10 +592,9 @@ chair.fancy {
   height: 110px;
   background-repeat: no-repeat;
   background-size: contain;
-  transform: scale(-1, 1);
   position: absolute;
   top: -47px;
-  left: -79px;
+  right: -79px;
 }
 
 /* ANIMATIONS  */
@@ -626,20 +630,20 @@ chair.fancy {
 
 @keyframes bounce {
   30% {
-    transform: scale(1.01);
+    transform: scale(1.03);
   }
 
   40%,
   60% {
-    transform: rotate(-2deg) scale(1.02);
+    transform: rotate(-3deg) scale(1.04);
   }
 
   50% {
-    transform: rotate(2deg) scale(1.02);
+    transform: rotate(3deg) scale(1.04);
   }
 
   70% {
-    transform: rotate(0deg) scale(1.02);
+    transform: rotate(0deg) scale(1.04);
   }
 
   100% {
@@ -661,4 +665,101 @@ chair.fancy {
     opacity: 0;
     transform: translateX(-320px);
   }
+}
+
+
+/* BURGER  */
+.burger-line {
+  width: 30px;
+  height: 2px;
+  background-color: #F1CDB3;
+}
+
+.burger-icon-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.4s all linear;
+  z-index: 100;
+}
+
+.burger-icon-wrapper:hover > .burger-line {
+  background-color: #f8e6da;
+  transition: 0.3s;
+}
+
+.burger-icon-wrapper:active > .burger-line {
+  background-color: #FAFAFA;
+  transition: 0.3s;
+}
+
+.burger-icon_active {
+  transform: rotate(-90deg);
+  transition: 0.6s all linear;
+  margin-right: -10px;
+}
+
+@media screen and (min-width: 1024px) {
+
+  .burger-icon-wrapper {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 1023px) {
+
+
+  .right-column,
+  .footer {
+    transform: translateX(100%);
+  }
+
+  .left-column {
+    width: 100%;
+  }
+
+}
+
+
+@media screen and (max-width: 785px) {
+
+  .castle {
+    width: auto;
+    gap: 0px;
+  }
+
+  .task-name {
+    font-size: 16px;
+  }
+
+  #logo {
+    display: none;
+  }
+
+  .header {
+    justify-content: flex-end;
+  }
+
+  .info-div {
+    top: -10px;
+    right: -20px;
+  }
+
+}
+
+
+@media screen and (max-width: 520px) {
+
+  .table {
+    width: 103px;
+    height: 155px;
+  }
+
+}
+
+.menu_active {
+  transform: translateX(0);
 }
