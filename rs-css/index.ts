@@ -3,6 +3,7 @@ import levels from "../sources/sources";
 import levelStatusObjTempl from "../sources/levelsStatuses";
 import Highlight from "../sources/highlight";
 import win from "../sources/winMarkup";
+import hljs from "highlight.js";
 
 // // const cssEditor = document.querySelector(".css-editor") as HTMLElement;
 
@@ -140,7 +141,7 @@ function chooseLevel(): void {
 }
 chooseLevel();
 
-const input = document.querySelector(".input-selector") as HTMLInputElement;
+const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
 const codeWrapper = document.querySelector(".code-wrapper") as HTMLDivElement;
 const levelStatuses = document.querySelectorAll(
   ".level-status"
@@ -209,6 +210,7 @@ let result = "";
 function typeLine(): void {
   const text = levels[currLevel].help;
   input.value = "";
+  clearCSS();
   const interval = setTimeout(() => {
     result += text[line][count];
     input.placeholder = result;
@@ -245,14 +247,18 @@ function hintStatus(): void {
 
 const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
 helpBtn.addEventListener("click", typeHelp);
-const showStylesSpan = document.querySelector(
-  ".user-styles"
-) as HTMLSpanElement;
+const showStylesSpan = document.querySelector(".language-css") as HTMLElement;
 
 function highlightInput(): void {
-  showStylesSpan.innerHTML = Highlight(input.value);
+  showStylesSpan.innerHTML = input.value;
+  hljs.highlightElement(showStylesSpan);
 }
+
 input.addEventListener("input", highlightInput);
+
+function clearCSS ():void {
+  showStylesSpan.innerHTML = "";
+}
 
 const levelItems = document.querySelectorAll(".levels-item");
 
@@ -335,6 +341,7 @@ function addWinAnimation(): void {
 
 function redrawLvl() {
   input.value = "";
+  clearCSS();
   showHtml();
   highlightCurrLvl();
   addAnimation();
@@ -382,3 +389,5 @@ burgerBtn.addEventListener("click", openLvlMenu);
 // fix level counter
 // fix bug with hiny status
 // level 10 redo
+
+// hljs.highlightAll();
