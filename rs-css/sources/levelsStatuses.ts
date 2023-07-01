@@ -1,4 +1,4 @@
-const levelStatusObjTempl = [
+const levelStatusObjTempl: { levelStatus: string; useHint: string }[] = [
   {
     levelStatus: "not completed",
     useHint: "false",

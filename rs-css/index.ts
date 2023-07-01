@@ -1,397 +1,262 @@
-import "./style.css";
-import levels from "../sources/sources";
-import levelStatusObjTempl from "../sources/levelsStatuses";
-import Highlight from "../sources/highlight";
-import win from "../sources/winMarkup";
-import hljs from "highlight.js";
+import './style.css'
+import levels from './sources/sources'
+import levelStatusObjTempl from './sources/levelsStatuses'
+import Highlight from './sources/highlight'
+import { Default } from './sources/types'
+import openBrgMenu from './app/openMenu'
+import { createHTMLHint } from './app/drawHints'
+import { hoverOverElem, hoverOverHTML } from './app/hoverFunc'
+import { compareElem } from './app/compareArrs'
+import { addClassShake } from './app/wrongAnswer'
+import { winMessage } from './app/winMessage'
+import { listenInput, clearCSS } from './app/hlInput'
+import { addWinAnimation } from './app/winAnimation'
+import { drawStatuses } from './app/drawStatuses'
 
-// // const cssEditor = document.querySelector(".css-editor") as HTMLElement;
+const levelList = document.querySelector('.levels-list') as HTMLOListElement
 
-const htmlView = document.querySelector(".html-view") as HTMLElement;
-
-let currLevel = 0;
-const castle = document.querySelector(".castle") as HTMLElement;
-
-function showHtml(): void {
-  castle.innerHTML = levels[currLevel].roomElements;
-  const gameElements = document.querySelectorAll(".castle *");
-  for (let i = 0; i < gameElements.length; i++) {
-    gameElements[i].setAttribute("element", i.toString());
-  }
-
-  htmlView.innerHTML = levels[currLevel].htmlTemplate;
-  const allStrings = document.querySelectorAll(".html-view *");
-  for (let i = 0; i < allStrings.length; i++) {
-    if (allStrings[i].children.length == 0) {
-      allStrings[i].innerHTML = Highlight(levels[currLevel].htmlMarkup[i]);
-    }
-  }
-
-  const codeStrings = document.querySelectorAll(".task-elements");
-  for (let i = 0; i < codeStrings.length; i++) {
-    codeStrings[i].setAttribute("element", i.toString());
-  }
-  hoverOverElem();
-  hoverOverHTML();
-  createHTMLHint();
-}
-
-function hoverOverElem() {
-  const codeStrings = document.querySelectorAll(".task-elements");
-  castle.addEventListener("mouseover", (el) => {
-    const targetEl = el.target as HTMLElement;
-    for (let i = 0; i < codeStrings.length; i++) {
-      if (
-        targetEl.getAttribute("element") ===
-        codeStrings[i].getAttribute("element")
-      ) {
-        codeStrings[i].classList.add("highlight-str");
-        targetEl.classList.add("highlight-el");
-        targetEl.querySelector(".info-div")?.classList.add("show-element");
-      }
-    }
-  });
-
-  castle.addEventListener("mouseout", (el) => {
-    const targetEl = el.target as HTMLElement;
-    for (let i = 0; i < codeStrings.length; i++) {
-      codeStrings[i].classList.remove("highlight-str");
-      targetEl.classList.remove("highlight-el");
-      targetEl.querySelector(".info-div")?.classList.remove("show-element");
-    }
-  });
-}
-
-function hoverOverHTML() {
-  const roomElements = document.querySelectorAll(".castle *");
-  const codeStrings: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".task-elements");
-
-  codeStrings.forEach((item) =>
-    item.addEventListener("mouseover", (e) => {
-      e.stopPropagation();
-      for (let i = 0; i < roomElements.length; i++) {
-        if (
-          item.getAttribute("element") ===
-          roomElements[i].getAttribute("element")
-        ) {
-          roomElements[i].classList.add("highlight-el");
-          item.classList.add("highlight-str");
-          roomElements[i]
-            .querySelector(".info-div")
-            ?.classList.add("show-element");
-        }
-      }
-    })
-  );
-
-  codeStrings.forEach((item) =>
-    htmlView.addEventListener("mouseout", (e) => {
-      e.stopPropagation();
-      for (let i = 0; i < roomElements.length; i++) {
-        roomElements[i].classList.remove("highlight-el");
-        item.classList.remove("highlight-str");
-        roomElements[i]
-          .querySelector(".info-div")
-          ?.classList.remove("show-element");
-      }
-    })
-  );
-}
-
-function addAnimation(): void {
-  const roomElements: NodeListOf<HTMLElement> = castle.querySelectorAll(
-    levels[currLevel].selector
-  );
-
-  roomElements.forEach((el) => el.classList.add("animation"));
-  // roomElements.forEach((el) => el.classList.add("task"));
-}
-
-const levelList = document.querySelector(".levels-list") as HTMLOListElement;
-
-function drawLevels(): void {
+function drawLevels (): void {
   for (let i = 0; i < levels.length; i++) {
-    const listItem = document.createElement("li");
-    listItem.className = "levels-item";
-    listItem.setAttribute("levelNumber", levels[i].level.toString());
-    levelList.appendChild(listItem);
+    const listItem = document.createElement('li')
+    listItem.className = 'levels-item'
+    listItem.setAttribute('levelNumber', levels[i].level.toString())
+    levelList.appendChild(listItem)
 
-    const levelStatus = document.createElement("div");
-    levelStatus.className = "level-status";
-    levelStatus.setAttribute("levelNumber", levels[i].level.toString());
-    listItem.appendChild(levelStatus);
+    const levelStatus = document.createElement('div')
+    levelStatus.className = 'level-status'
+    levelStatus.setAttribute('levelNumber', levels[i].level.toString())
+    listItem.appendChild(levelStatus)
 
-    const levelNameDiv = document.createElement("div");
-    levelNameDiv.className = "level-name";
-    levelNameDiv.setAttribute("levelNumber", levels[i].level.toString());
-    listItem.appendChild(levelNameDiv);
-    levelNameDiv.textContent = `${levels[i].level + 1}. ${levels[i].levelName}`;
+    const levelNameDiv = document.createElement('div')
+    levelNameDiv.className = 'level-name'
+    levelNameDiv.setAttribute('levelNumber', levels[i].level.toString())
+    listItem.appendChild(levelNameDiv)
+    levelNameDiv.textContent = `${levels[i].level + 1}. ${levels[i].levelName}`
   }
 }
 
-drawLevels();
+drawLevels()
 
-function chooseLevel(): void {
-  levelList.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    currLevel = Number(target.getAttribute("levelNumber"));
-    redrawLvl();
-  });
+function chooseLevel (): void {
+  levelList.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement
+    currLevel = Number(target.getAttribute('levelNumber'))
+    redrawLvl()
+  })
 }
-chooseLevel();
+chooseLevel()
 
-const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
-const codeWrapper = document.querySelector(".code-wrapper") as HTMLDivElement;
-const levelStatuses = document.querySelectorAll(
-  ".level-status"
-) as NodeListOf<Element>;
+const htmlView = document.querySelector('.html-view') as HTMLElement
+const castle = document.querySelector('.castle') as HTMLElement
 
-function changeStatus() {
-  if (levelStatusObj[currLevel].useHint === "true") {
-    levelStatuses[currLevel].classList.add("level-hint");
-    levelStatusObj[currLevel].levelStatus = "hint";
-  } else levelStatusObj[currLevel].levelStatus = "completed";
-  levelStatuses[currLevel].classList.add("level-done");
-}
+let currLevel = 0
 
-function addClassShake(): void {
-  codeWrapper.classList.add("shake");
-  setTimeout(() => codeWrapper.classList.remove("shake"), 400);
-}
+function showHtml (): void {
+  castle.innerHTML = levels[currLevel].roomElements
+  const gameElements = document.querySelectorAll('.castle *')
+  for (let i = 0; i < gameElements.length; i++) {
+    gameElements[i].setAttribute('element', i.toString())
+  }
 
-function winMessage(): void {
-  castle.innerHTML = win.markup;
-}
-
-function checkSelector(): void {
-  const taskElements = document.querySelectorAll(".animation");
-  const userElements = castle.querySelectorAll(input.value);
-  console.log(userElements);
-
-  const array1 = Array.from(taskElements);
-  const array2 = Array.from(userElements);
-  const compareElem =
-    array1.length == array2.length &&
-    array1.every(function (element, index) {
-      return element === array2[index];
-    });
-
-  if (compareElem) {
-    changeStatus();
-    addWinAnimation();
-    if (currLevel === 9) {
-      addWinAnimation();
-      setTimeout(winMessage, 800);
-    } else {
-      currLevel++;
-      setTimeout(redrawLvl, 800);
+  htmlView.innerHTML = levels[currLevel].htmlTemplate
+  const allStrings = document.querySelectorAll('.html-view *')
+  for (let i = 0; i < allStrings.length; i++) {
+    if (allStrings[i].children.length === 0) {
+      allStrings[i].innerHTML = Highlight(levels[currLevel].htmlMarkup[i])
     }
-  } else if (!compareElem) {
-    addClassShake();
+  }
+  setMarkupAttr();
+  hoverOverElem()
+  hoverOverHTML()
+  createHTMLHint()
+}
+
+function setMarkupAttr(): void {
+    const codeStrings = document.querySelectorAll('.task-elements')
+    for (let i = 0; i < codeStrings.length; i++) {
+    codeStrings[i].setAttribute('element', i.toString())
   }
 }
 
-function checkSelectorEnter(el: {
-  code: string;
-  preventDefault: () => void;
-}): void {
-  if (el.code == "Enter") {
-    el.preventDefault();
-    checkSelector();
+function addAnimation (): void {
+    const roomElements: NodeListOf<HTMLElement> = castle.querySelectorAll(
+    levels[currLevel].selector
+  )
+  roomElements.forEach((el) => {
+    el.classList.add('animation')
+  })
+}
+
+const input = document.querySelector('.input-selector') as HTMLTextAreaElement
+const levelStatuses = document.querySelectorAll('.level-status')
+
+function changeStatus (): void {
+  if (levelStatusObj[currLevel].useHint === 'true') {
+    levelStatuses[currLevel].classList.add('level-hint')
+    levelStatusObj[currLevel].levelStatus = 'hint'
+  } else levelStatusObj[currLevel].levelStatus = 'completed'
+  levelStatuses[currLevel].classList.add('level-done')
+}
+
+function checkSelector (): void {
+  const array1 = Array.from(document.querySelectorAll('.animation'))
+  const array2 = Array.from(castle.querySelectorAll(input.value))
+
+  if (compareElem(array1, array2)) {
+    changeStatus()
+    addWinAnimation()
+    if (currLevel === 9) {      //magic number!!!!!!!!!!!!1
+      addWinAnimation()
+      setTimeout(winMessage, 800)
+    } else {
+      currLevel++
+      setTimeout(redrawLvl, 800)
+    }
+  } else if (!compareElem(array1, array2)) {
+    addClassShake()
   }
 }
 
-window.addEventListener("keydown", checkSelectorEnter);
-const enterBtn = document.querySelector(".btn-enter") as HTMLButtonElement;
-enterBtn.addEventListener("click", checkSelector);
+function checkSelectorEnter (el: Default): void {
+  if (el.code === 'Enter') {
+    el.preventDefault()
+    checkSelector()
+  }
+}
 
-let line = 0;
-let count = 0;
-let result = "";
+window.addEventListener('keydown', checkSelectorEnter)
+const enterBtn = document.querySelector('.btn-enter') as HTMLButtonElement
+enterBtn.addEventListener('click', checkSelector)
 
-function typeLine(): void {
-  const text = levels[currLevel].help;
-  input.value = "";
-  clearCSS();
+let line = 0
+let count = 0
+let result = ''
+
+function typeLine (): void {
+  const text = levels[currLevel].help
+  input.value = ''
+  clearCSS()
   const interval = setTimeout(() => {
-    result += text[line][count];
-    input.placeholder = result;
-    count++;
+    result += text[line][count]
+    input.placeholder = result
+    count++
     if (count >= text[line].length) {
-      count = 0;
-      line++;
-      if (line == text.length) {
-        clearTimeout(interval);
-        input.placeholder = result;
-        return true;
+      count = 0
+      line++
+      if (line === text.length) {
+        clearTimeout(interval)
+        input.placeholder = result
+        return true
       }
     }
-    typeLine();
-  }, 80);
+    typeLine()
+  }, 80)
 }
 
-function clearInput(): void {
-  setTimeout(() => (input.placeholder = "Type a CSS Selector"), 2500);
-  line = 0;
-  count = 0;
-  result = "";
+function clearInput (): void {
+  setTimeout(() => (input.placeholder = 'Type a CSS Selector'), 2500)
+  line = 0
+  count = 0
+  result = ''
 }
 
-function typeHelp(): void {
-  typeLine();
-  clearInput();
-  hintStatus();
+function typeHelp (): void {
+  typeLine()
+  clearInput()
+  hintStatus()
 }
 
-function hintStatus(): void {
-  levelStatusObj[currLevel].useHint = "true";
+function hintStatus (): void {
+  levelStatusObj[currLevel].useHint = 'true'
 }
 
-const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
-helpBtn.addEventListener("click", typeHelp);
-const showStylesSpan = document.querySelector(".language-css") as HTMLElement;
+const helpBtn = document.querySelector('.btn-help') as HTMLButtonElement
+helpBtn.addEventListener('click', typeHelp)
 
-function highlightInput(): void {
-  showStylesSpan.innerHTML = input.value;
-  hljs.highlightElement(showStylesSpan);
-}
+const levelItems = document.querySelectorAll('.levels-item')
 
-input.addEventListener("input", highlightInput);
-
-function clearCSS(): void {
-  showStylesSpan.innerHTML = "";
-}
-
-const levelItems = document.querySelectorAll(".levels-item");
-
-function highlightCurrLvl(): void {
+function highlightCurrLvl (): void {
   levelItems.forEach((item: Element) => {
-    item.classList.remove("curr-lvl");
-  });
+    item.classList.remove('curr-lvl')
+  })
   for (let i = 0; i < levelItems.length; i++) {
-    if (levelItems[i].getAttribute("levelnumber") == currLevel.toString()) {
-      levelItems[i].classList.add("curr-lvl");
+    if (levelItems[i].getAttribute('levelnumber') === currLevel.toString()) {
+      levelItems[i].classList.add('curr-lvl')
     }
   }
-  changeLvlNmb();
+  changeLvlNmb()
 }
 
-const lvlNmb = document.querySelector(".level-nmb") as HTMLSpanElement;
-function changeLvlNmb() {
-  lvlNmb.innerText = (currLevel + 1).toString();
+const lvlNmb = document.querySelector('.level-nmb') as HTMLSpanElement
+function changeLvlNmb (): void {
+  lvlNmb.innerText = (currLevel + 1).toString()
 }
-const taskName = document.querySelector(".task-name") as HTMLHeadingElement;
+const taskName = document.querySelector('.task-name') as HTMLHeadingElement
 
-function changeTask(): void {
-  taskName.innerText = levels[currLevel].task;
-}
-
-const newGameBtn = document.querySelector(".new-game-btn") as HTMLButtonElement;
-
-let levelStatusObj = levelStatusObjTempl;
-
-function startNewGame(): void {
-  levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
-  levelStatusObj.forEach((obj) => (obj.useHint = "false"));
-  currLevel = 0;
-  redrawLvl();
-  levelStatuses.forEach((item) => item.classList.remove("level-hint"));
-  levelStatuses.forEach((item) => item.classList.remove("level-done"));
+function changeTask (): void {
+  taskName.innerText = levels[currLevel].task
 }
 
-newGameBtn.addEventListener("click", () => localStorage.clear());
-newGameBtn.addEventListener("click", startNewGame);
+const newGameBtn = document.querySelector('.new-game-btn') as HTMLButtonElement
 
-function saveGame(): void {
-  localStorage.setItem("levelsStatuses", JSON.stringify(levelStatusObj));
-  localStorage.setItem("currentLevel", JSON.stringify(currLevel));
+export let levelStatusObj = levelStatusObjTempl
+
+function startNewGame (): void {
+  levelStatusObj.forEach((obj) => (obj.levelStatus = 'not completed'))
+  levelStatusObj.forEach((obj) => (obj.useHint = 'false'))
+  currLevel = 0
+  redrawLvl()
+  levelStatuses.forEach((item) => {
+    item.classList.remove('level-hint')
+  })
+  levelStatuses.forEach((item) => {
+    item.classList.remove('level-done')
+  })
 }
 
-function loadGame(): void {
-  if (localStorage.getItem("levelsStatuses")) {
-    levelStatusObj = JSON.parse(localStorage.getItem("levelsStatuses") || "");
+newGameBtn.addEventListener('click', () => {
+  localStorage.clear()
+})
+newGameBtn.addEventListener('click', startNewGame)
+
+function saveGame (): void {
+  localStorage.setItem('levelsStatuses', JSON.stringify(levelStatusObj))
+  localStorage.setItem('currentLevel', JSON.stringify(currLevel))
+}
+
+function loadGame (): void {
+  if (localStorage.getItem('levelsStatuses') != null) {
+    levelStatusObj = JSON.parse(localStorage.getItem('levelsStatuses') ?? '')
   }
-  if (localStorage.getItem("currentLevel")) {
-    currLevel = JSON.parse(localStorage.getItem("currentLevel") || "0");
-  }
-}
-
-function drawStatuses(): void {
-  for (let i = 0; i < levelStatusObj.length; i++) {
-    if (levelStatusObj[i].levelStatus === "hint") {
-      levelStatuses[i].classList.add("level-hint");
-    }
-    if (levelStatusObj[i].levelStatus === "completed") {
-      levelStatuses[i].classList.add("level-done");
-    }
+  if (localStorage.getItem('currentLevel') != null) {
+    currLevel = JSON.parse(localStorage.getItem('currentLevel') ?? '0')
   }
 }
-window.addEventListener("beforeunload", saveGame);
 
-function startLoadedGame() {
-  loadGame();
-  drawStatuses();
-  redrawLvl();
+window.addEventListener('beforeunload', saveGame)
+
+function startLoadedGame (): void {
+  loadGame()
+  drawStatuses()
+  redrawLvl()
 }
 
-function startGame() {
-  if (localStorage.getItem("levelsStatuses")) {
-    startLoadedGame();
-  } else startNewGame();
+function startGame (): void {
+  if (localStorage.getItem('levelsStatuses') != null) {
+    startLoadedGame()
+  } else startNewGame()
 }
 
-window.addEventListener("load", startGame);
+window.addEventListener('load', startGame)
 
-function addWinAnimation(): void {
-  const roomElements: NodeListOf<HTMLElement> =
-    document.querySelectorAll(".animation");
-  roomElements.forEach((el) => el.classList.add("fly"));
+function redrawLvl (): void {
+  input.value = ''
+  clearCSS()
+  showHtml()
+  highlightCurrLvl()
+  addAnimation()
+  changeTask()
 }
 
-function redrawLvl() {
-  input.value = "";
-  clearCSS();
-  showHtml();
-  highlightCurrLvl();
-  addAnimation();
-  changeTask();
-}
-
-function createHTMLHint() {
-  const gameElements = document.querySelectorAll(".castle *");
-
-  function createInfoEl(elem: Element) {
-    const infoEl = document.createElement("div");
-    infoEl.className = "info-div";
-    elem.prepend(infoEl);
-    infoEl.innerText = parseHtml(elem.outerHTML);
-  }
-  gameElements.forEach((item) => createInfoEl(item));
-}
-
-function parseHtml(str: string): string {
-  const indexInf = str.indexOf(`<div class="info-div"></div>`);
-  const sliceinfOut = str.slice(0, indexInf) + str.slice(indexInf + 28);
-  function cutElem(str: string) {
-    const indexEl = str.indexOf(" element");
-    const sliceElOut = str.slice(0, indexEl) + str.slice(indexEl + 12);
-    if (sliceElOut.indexOf(" element") === -1) {
-      return sliceElOut;
-    } else return cutElem(sliceElOut);
-  }
-  return cutElem(sliceinfOut);
-}
-
-const burgerBtn = document.querySelector(".burger-btn") as HTMLElement;
-const openMenu = document.querySelector(".right-column") as HTMLElement;
-const footer = document.querySelector(".footer") as HTMLElement;
-
-function openLvlMenu() {
-  openMenu.classList.toggle("menu_active");
-  footer.classList.toggle("menu_active");
-  burgerBtn.classList.toggle("burger-icon_active");
-}
-
-burgerBtn.addEventListener("click", openLvlMenu);
-
+openBrgMenu()
+listenInput()
