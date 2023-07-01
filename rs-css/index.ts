@@ -100,7 +100,7 @@ function hoverOverHTML() {
 }
 
 function addAnimation(): void {
-  const roomElements: NodeListOf<HTMLElement> = document.querySelectorAll(
+  const roomElements: NodeListOf<HTMLElement> = castle.querySelectorAll(
     levels[currLevel].selector
   );
 
@@ -148,8 +148,9 @@ const levelStatuses = document.querySelectorAll(
 ) as NodeListOf<Element>;
 
 function changeStatus() {
-  if (levelStatusObj[currLevel].levelStatus == "hint") {
+  if (levelStatusObj[currLevel].useHint === "true") {
     levelStatuses[currLevel].classList.add("level-hint");
+    levelStatusObj[currLevel].levelStatus = "hint";
   } else levelStatusObj[currLevel].levelStatus = "completed";
   levelStatuses[currLevel].classList.add("level-done");
 }
@@ -165,7 +166,8 @@ function winMessage(): void {
 
 function checkSelector(): void {
   const taskElements = document.querySelectorAll(".animation");
-  const userElements = document.querySelectorAll(input.value);
+  const userElements = castle.querySelectorAll(input.value);
+  console.log(userElements);
 
   const array1 = Array.from(taskElements);
   const array2 = Array.from(userElements);
@@ -179,7 +181,8 @@ function checkSelector(): void {
     changeStatus();
     addWinAnimation();
     if (currLevel === 9) {
-      winMessage();
+      addWinAnimation();
+      setTimeout(winMessage, 800);
     } else {
       currLevel++;
       setTimeout(redrawLvl, 800);
@@ -242,7 +245,7 @@ function typeHelp(): void {
 }
 
 function hintStatus(): void {
-  levelStatusObj[currLevel].levelStatus = "hint";
+  levelStatusObj[currLevel].useHint = "true";
 }
 
 const helpBtn = document.querySelector(".btn-help") as HTMLButtonElement;
@@ -256,7 +259,7 @@ function highlightInput(): void {
 
 input.addEventListener("input", highlightInput);
 
-function clearCSS ():void {
+function clearCSS(): void {
   showStylesSpan.innerHTML = "";
 }
 
@@ -271,8 +274,13 @@ function highlightCurrLvl(): void {
       levelItems[i].classList.add("curr-lvl");
     }
   }
+  changeLvlNmb();
 }
 
+const lvlNmb = document.querySelector(".level-nmb") as HTMLSpanElement;
+function changeLvlNmb() {
+  lvlNmb.innerText = (currLevel + 1).toString();
+}
 const taskName = document.querySelector(".task-name") as HTMLHeadingElement;
 
 function changeTask(): void {
@@ -285,6 +293,7 @@ let levelStatusObj = levelStatusObjTempl;
 
 function startNewGame(): void {
   levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
+  levelStatusObj.forEach((obj) => (obj.useHint = "false"));
   currLevel = 0;
   redrawLvl();
   levelStatuses.forEach((item) => item.classList.remove("level-hint"));
@@ -298,6 +307,7 @@ function saveGame(): void {
   localStorage.setItem("levelsStatuses", JSON.stringify(levelStatusObj));
   localStorage.setItem("currentLevel", JSON.stringify(currLevel));
 }
+
 function loadGame(): void {
   if (localStorage.getItem("levelsStatuses")) {
     levelStatusObj = JSON.parse(localStorage.getItem("levelsStatuses") || "");
@@ -385,9 +395,3 @@ function openLvlMenu() {
 
 burgerBtn.addEventListener("click", openLvlMenu);
 
-// TODO: fix chair height lvl 7, 8
-// fix level counter
-// fix bug with hiny status
-// level 10 redo
-
-// hljs.highlightAll();

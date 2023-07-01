@@ -1,7 +1,7 @@
 :root {
   --text-color: rgb(149, 148, 148);
   --main-grey-color: rgb(135, 131, 131);
-  --white-textarea:  rgb(238, 238, 225);
+  --white-textarea: rgb(238, 238, 225);
 }
 
 html {
@@ -414,8 +414,7 @@ textarea:focus {
 }
 
 .text-image:hover {
-  background-color: #ffffff8a;
-  border-radius: 5px;
+  background-color: #706f6f8a;
 }
 
 /* LEVELS ELEMENTS  */
@@ -530,6 +529,10 @@ vase {
   background-position: bottom;
 }
 
+vase.black {
+  background-image: url(./assets/vase-black.png);
+}
+
 vase.small {
   width: 47px;
   height: 70px;
@@ -611,6 +614,10 @@ chair.fancy {
   width: 103px;
   height: 210px;
   padding-bottom: 50px;
+}
+
+chair.black {
+  background-image: url(./assets/chair-black.png);
 }
 
 .win-message {
@@ -751,6 +758,22 @@ chair.fancy {
 }
 
 
+@media screen and (max-width: 850px) {
+
+  #logo {
+    display: none;
+  }
+
+  .header {
+    justify-content: flex-end;
+  }
+
+  .burger-icon-wrapper {
+    margin-top: 4px;
+  }
+
+}
+
 @media screen and (max-width: 785px) {
 
   .castle {
@@ -760,14 +783,6 @@ chair.fancy {
 
   .task-name {
     font-size: 16px;
-  }
-
-  #logo {
-    display: none;
-  }
-
-  .header {
-    justify-content: flex-end;
   }
 
   .info-div {
@@ -800,7 +815,7 @@ chair.fancy {
 }
 
 code {
-  top: 1px; 
+  top: 1px;
   left: 4px;
   position: absolute;
   display: block;
