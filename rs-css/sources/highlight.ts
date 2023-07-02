@@ -14,12 +14,7 @@ const Highlight = (string: string): string => {
     /(?!<span\sclass=".*">.*<\/span>)(\/?&gt;)/g,
     '<span class="method">$1</span>'
   )
-  //  console.log(string);
+ 
   return string
 }
 export default Highlight
-// const result = [];
-// for (let i = 0; i < arr.length; i++) {
-//   result.push(arr[i].outerHTML);
-// }
-// console.log(result);

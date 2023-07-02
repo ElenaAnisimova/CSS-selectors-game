@@ -1,4 +1,6 @@
-const levelStatusObjTempl: { levelStatus: string; useHint: string }[] = [
+import { levelObj } from "./types";
+
+const levelStatusObjTempl: levelObj[] = [
   {
     levelStatus: "not completed",
     useHint: "false",

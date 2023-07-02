@@ -8,7 +8,7 @@ function highlightInput (): void {
   hljs.highlightElement(showStylesSpan)
 }
 
-export const listenInput = () => input.addEventListener('input', highlightInput)
+export const listenInput = ():void => input.addEventListener('input', highlightInput)
 
 export function clearCSS (): void {
   showStylesSpan.innerHTML = ''

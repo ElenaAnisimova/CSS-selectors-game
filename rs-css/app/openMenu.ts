@@ -8,6 +8,6 @@ function openLvlMenu (): void {
   burgerBtn.classList.toggle('burger-icon_active')
 }
 
-const openBrgMenu = () => burgerBtn.addEventListener('click', openLvlMenu)
+const openBrgMenu = ():void => burgerBtn.addEventListener('click', openLvlMenu)
 
 export default openBrgMenu

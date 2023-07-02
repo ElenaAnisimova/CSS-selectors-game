@@ -9,7 +9,7 @@ export function createHTMLHint (): void {
     elem.prepend(infoEl)
     infoEl.innerText = parseHtml(elem.outerHTML)
   }
-  gameElements.forEach((item) => {
+  gameElements.forEach((item):void => {
     createInfoEl(item)
   })
 }
