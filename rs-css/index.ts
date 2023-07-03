@@ -14,22 +14,27 @@ import { callCheckAns } from "./app/checkAnswer";
 import { levelObj } from "./sources/types";
 export let levelStatusObj: levelObj[]  = levelStatusObjTempl;
 
+// CURRENT LEVEL VARIABLE 
 declare global {
   interface Window { currLevel: number; }
 }
 window.currLevel = window.currLevel || 0;
 
+// DRAW HTML
 drawLevels();
 chooseLevel();
 
-// LOAD GAME 
-function loadGame(): void {
+// START GAME, LOAD GAME 
+export function loadGame(){
   if (localStorage.getItem("levelsStatuses") != null) {
     levelStatusObj = JSON.parse(localStorage.getItem("levelsStatuses") ?? "");
   }
+  
   if (localStorage.getItem("currentLevel") != null) {
     window.currLevel = JSON.parse(localStorage.getItem("currentLevel") ?? "0");
+    // return console.log(window.currLevel)
   }
+  return levelStatusObj
 }
 
 function startLoadedGame(): void {

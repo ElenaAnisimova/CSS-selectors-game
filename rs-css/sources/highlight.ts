@@ -14,6 +14,7 @@ const Highlight = (string: string): string => {
     /(?!<span\sclass=".*">.*<\/span>)(\/?&gt;)/g,
     '<span class="method">$1</span>'
   )
+ console.log(string);
  
   return string
 }

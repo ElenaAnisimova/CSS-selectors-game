@@ -1,17 +1,18 @@
 import { levelStatusObj } from "..";
+import { levelObj } from "../sources/types";
 import { redrawLvl } from "./redrawLevel";
 
 const newGameBtn = document.querySelector(".new-game-btn") as HTMLButtonElement;
 export function startNewGame(): void {
   const levelStatuses = document.querySelectorAll(".level-status");
-  levelStatusObj.forEach((obj) => (obj.levelStatus = "not completed"));
-  levelStatusObj.forEach((obj) => (obj.useHint = "false"));
+  levelStatusObj.forEach((obj:levelObj) => (obj.levelStatus = "not completed"));
+  levelStatusObj.forEach((obj:levelObj) => (obj.useHint = "false"));
   window.currLevel = 0;
   redrawLvl();
-  levelStatuses.forEach((item) => {
+  levelStatuses.forEach((item:Element) => {
     item.classList.remove("level-hint");
   });
-  levelStatuses.forEach((item) => {
+  levelStatuses.forEach((item:Element) => {
     item.classList.remove("level-done");
   });
 }

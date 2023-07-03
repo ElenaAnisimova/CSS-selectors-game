@@ -8,6 +8,7 @@ export interface levelObj {
   levelStatus: string;
   useHint: string;
 }
+
 export interface Default {
   code: string;
   preventDefault: () => void;
