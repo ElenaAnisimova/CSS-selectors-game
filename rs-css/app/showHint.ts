@@ -6,6 +6,8 @@ let line = 0;
 let count = 0;
 let result = "";
 
+// Code snippet source: https://myrusakov.ru/js-typing-effect.html
+
 export function typeLine(): void {
   const text:string = levels[window.currLevel].help;
   input.value = "";

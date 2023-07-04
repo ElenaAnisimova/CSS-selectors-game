@@ -1,3 +1,6 @@
+
+// Code source: npm highlight-syntax, https://github.com/ajnauleau/highlight-syntax
+
 const Highlight = (string: string): string => {
   string = string.replace(/</g, '&lt;')
   string = string.replace(/>/g, '&gt;')
