@@ -14,11 +14,12 @@ export function drawMarkup(): void {
     gameElements[i].setAttribute("element", i.toString());
   }
 
+  const highlight = new Highlight;
   htmlView.innerHTML = levels[window.currLevel].htmlTemplate;
   const allStrings = document.querySelectorAll(".html-view *");
   for (let i = 0; i < allStrings.length; i++) {
     if (allStrings[i].children.length === 0) {
-      allStrings[i].innerHTML = Highlight(levels[window.currLevel].htmlMarkup[i]);
+      allStrings[i].innerHTML = highlight.highlightHtml(levels[window.currLevel].htmlMarkup[i]);
     }
   }
   setMarkupAttr();
