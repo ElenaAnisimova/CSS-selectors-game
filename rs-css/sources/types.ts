@@ -13,3 +13,16 @@ export interface Default {
   code: string;
   preventDefault: () => void;
 }
+
+export interface levelsInfo {
+  level: number;
+  levelName: string;
+  selectorName: string;
+  task: string;
+  taskDescription: string;
+  selector: string;
+  help: string;
+  roomElements: string;
+  htmlMarkup: string[];
+  htmlTemplate: string;
+}

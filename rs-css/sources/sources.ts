@@ -1,4 +1,6 @@
-const levels = [
+import { levelsInfo } from "./types"
+
+const levels: levelsInfo[] = [
   {
     level: 0,
     levelName: 'A',
