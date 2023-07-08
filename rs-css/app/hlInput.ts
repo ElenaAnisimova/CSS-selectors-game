@@ -1,15 +1,27 @@
-import hljs from "highlight.js"
+import hljs from "highlight.js";
 
-const showStylesSpan = document.querySelector('.language-css') as HTMLElement
-const input = document.querySelector('.input-selector') as HTMLTextAreaElement
+const showStylesSpan = document.querySelector(".language-css") as HTMLElement;
+const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
 
-function highlightInput (): void {
-  showStylesSpan.innerHTML = input.value
-  hljs.highlightElement(showStylesSpan)
+export function setInputValue(
+  el: HTMLElement,
+  inputEl: HTMLTextAreaElement | HTMLInputElement
+): void {
+  el.innerHTML = inputEl.value;
 }
 
-export const listenInput = ():void => input.addEventListener('input', highlightInput)
+export function callHighlight(el: HTMLElement): void {
+  hljs.highlightElement(el);
+}
 
-export function clearCSS (): void {
-  showStylesSpan.innerHTML = ''
+function highlightInput(): void {
+  setInputValue(showStylesSpan, input);
+  callHighlight(showStylesSpan);
+}
+
+export const listenInput = (): void =>
+  input.addEventListener("input", highlightInput);
+
+export function clearCSS(el: HTMLElement): void {
+  el.innerHTML = "";
 }

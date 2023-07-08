@@ -1,6 +1,7 @@
 import levels from "../sources/sources";
 import { clearCSS } from "./hlInput";
 const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
+const showStylesSpan = document.querySelector('.language-css') as HTMLElement
 
 let line = 0;
 let count = 0;
@@ -11,7 +12,7 @@ let result = "";
 export function typeLine(): void {
   const text:string = levels[window.currLevel].help;
   input.value = "";
-  clearCSS();
+  clearCSS(showStylesSpan);
   const interval = setTimeout(() => {
     result += text[line][count];
     input.placeholder = result;

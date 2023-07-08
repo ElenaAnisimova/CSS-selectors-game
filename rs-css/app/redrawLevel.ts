@@ -5,11 +5,14 @@ import { addAnimation } from "./lvlAnimation";
 import { changeTask } from "./changeTask";
 
 const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
+const showStylesSpan = document.querySelector('.language-css') as HTMLElement
+const taskName = document.querySelector(".task-name") as HTMLHeadingElement;
+
 export function redrawLvl(): void {
   input.value = "";
-  clearCSS();
+  clearCSS(showStylesSpan);
   drawMarkup();
   highlightCurrLvl();
   addAnimation();
-  changeTask();
+  changeTask(taskName, window.currLevel);
 }
