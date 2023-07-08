@@ -9,6 +9,7 @@ import { redrawLvl } from "./redrawLevel";
 const castle = document.querySelector(".castle") as HTMLElement;
 const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
 const enterBtn = document.querySelector(".btn-enter") as HTMLButtonElement;
+const codeWrapper = document.querySelector('.code-wrapper') as HTMLElement
 
 export function checkSelector(): void {
   const array1 = Array.from(document.querySelectorAll(".animation"));
@@ -24,7 +25,7 @@ export function checkSelector(): void {
       setTimeout(redrawLvl, 800);
     }
   } else if (!compareElem(array1, array2)) {
-    addClassShake();
+    addClassShake(codeWrapper, 'shake');
   }
 }
 

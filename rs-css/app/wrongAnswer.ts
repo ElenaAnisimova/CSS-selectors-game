@@ -1,8 +1,6 @@
-const codeWrapper = document.querySelector('.code-wrapper') as HTMLDivElement
-
-export function addClassShake (): void {
-  codeWrapper.classList.add('shake')
+export function addClassShake (el: HTMLElement, className: string): void {
+  el.classList.add(className)
   setTimeout(() => {
-    codeWrapper.classList.remove('shake')
+    el.classList.remove(className)
   }, 400)
 }
