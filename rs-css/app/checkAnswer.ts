@@ -18,7 +18,7 @@ export function checkSelector(): void {
     addWinAnimation();
     if (window.currLevel === levels.length - 1) {
       addWinAnimation();
-      setTimeout(winMessage, 800);
+      setTimeout(() => winMessage(castle), 800);
     } else {
       window.currLevel++;
       setTimeout(redrawLvl, 800);
@@ -28,4 +28,5 @@ export function checkSelector(): void {
   }
 }
 
-export const callCheckAns = ():void => enterBtn.addEventListener("click", checkSelector);
+export const callCheckAns = (): void =>
+  enterBtn.addEventListener("click", checkSelector);

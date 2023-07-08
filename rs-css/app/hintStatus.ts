@@ -1,4 +1,3 @@
-
 import { levelStatusObj } from "..";
 
 export function hintStatus(): void {

@@ -1,4 +1,3 @@
-
 export function highlightCurrLvl(): void {
   const levelItems = document.querySelectorAll(".levels-item");
   levelItems.forEach((item: Element) => {

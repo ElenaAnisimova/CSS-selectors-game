@@ -15,8 +15,7 @@ function parseHtml (str: string): string {
       return sliceElOut
     } else return cutElem(sliceElOut)
   }
-  // console.log(cutElem(sliceinfOut));
-  
+    
   return cutElem(sliceinfOut)
 }
 export default parseHtml
