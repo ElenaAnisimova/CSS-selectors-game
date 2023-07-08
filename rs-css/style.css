@@ -286,7 +286,6 @@ button:active {
   color: #d5d1d2;
   width: 73px;
   height: 37px;
-  /* border: 1px grey solid; */
   border-radius: 4px;
   box-shadow: -1px 5px 4px -4px #52192b;
   transition: 0.15s ease-in-out;
@@ -742,7 +741,6 @@ chair.black {
 
 }
 
-
 @media screen and (max-width: 850px) {
 
   #logo {
@@ -806,15 +804,9 @@ code {
   display: block;
   width: inherit;
   height: inherit;
-  /* color: var(--white-textarea); */
 }
 
-/* code.hljs {
-  padding: 3px 5px
-} */
-
 .hljs {
-  /* background: #f3f3f3; */
   color: #24603b
 }
 

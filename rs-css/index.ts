@@ -32,7 +32,6 @@ export function loadGame(){
   
   if (localStorage.getItem("currentLevel") != null) {
     window.currLevel = JSON.parse(localStorage.getItem("currentLevel") ?? "0");
-    // return console.log(window.currLevel)
   }
   return levelStatusObj
 }
