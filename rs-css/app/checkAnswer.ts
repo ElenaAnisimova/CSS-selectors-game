@@ -9,23 +9,28 @@ import { redrawLvl } from "./redrawLevel";
 const castle = document.querySelector(".castle") as HTMLElement;
 const input = document.querySelector(".input-selector") as HTMLTextAreaElement;
 const enterBtn = document.querySelector(".btn-enter") as HTMLButtonElement;
-const codeWrapper = document.querySelector('.code-wrapper') as HTMLElement
+const codeWrapper = document.querySelector(".code-wrapper") as HTMLElement;
 
 export function checkSelector(): void {
-  const array1 = Array.from(document.querySelectorAll(".animation"));
-  const array2 = Array.from(castle.querySelectorAll(input.value));
-  if (compareElem(array1, array2)) {
-    changeStatus();
-    addWinAnimation();
-    if (window.currLevel === levels.length - 1) {
+  try {
+    const array1 = Array.from(document.querySelectorAll(".animation"));
+    const array2 = Array.from(castle.querySelectorAll(input.value));
+    if (compareElem(array1, array2)) {
+      changeStatus();
       addWinAnimation();
-      setTimeout(() => winMessage(castle), 800);
-    } else {
-      window.currLevel++;
-      setTimeout(redrawLvl, 800);
+      if (window.currLevel === levels.length - 1) {
+        addWinAnimation();
+        setTimeout(() => winMessage(castle), 800);
+      } else {
+        window.currLevel++;
+        setTimeout(redrawLvl, 800);
+      }
+    } else if (!compareElem(array1, array2)) {
+      addClassShake(codeWrapper, "shake");
     }
-  } else if (!compareElem(array1, array2)) {
-    addClassShake(codeWrapper, 'shake');
+  } catch (error) {
+    console.log(error);
+    addClassShake(codeWrapper, "shake");
   }
 }
 
