@@ -2,7 +2,7 @@
 
 **Tech Stack: Typescript + HTML 5 + CSS + Webpack 5 + ESLint + Jest for testing**
 
-## Deploy: <a href="https://minesweeper-elena-anisimova.netlify.app/" target="_blank">CSS selectors playground</a>
+## Deploy: <a href="https://css-selectors-playground.netlify.app/" target="_blank">CSS selectors playground</a>
 
 ## Функционал:
 - 10 игровых уровней;
